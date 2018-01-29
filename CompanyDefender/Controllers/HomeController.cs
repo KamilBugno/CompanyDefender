@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,6 +17,8 @@ namespace CompanyDefender.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            var client = new HttpClient();
+            var response = await client.
 
             return View();
         }
