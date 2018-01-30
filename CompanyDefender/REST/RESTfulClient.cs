@@ -1,6 +1,7 @@
 ﻿using CompanyDefender.Constant;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -19,14 +20,36 @@ namespace CompanyDefender.REST
 
         public async Task<String> GetHelloAsync()
         {
-            String hello = null;
-            HttpResponseMessage response = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.helloWorldAction)
+            String response = null;
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.helloWorldAction)
                 .ConfigureAwait(false);
 
-            if (response.IsSuccessStatusCode)
-                hello = await response.Content.ReadAsStringAsync();
+            if (httpResponse.IsSuccessStatusCode)
+                response = await httpResponse.Content.ReadAsStringAsync();
             
-            return hello;
+            return response;
+        }
+
+        public async Task UploadFileToFoxxAsync(string filePathFromClient, string foxxFileName)
+        {
+            using (var stream = File.OpenRead(filePathFromClient))
+            {
+                var fullUrl = ApplicationConstant.urlService + ApplicationConstant.uploadFileAction + foxxFileName;
+                var httpResponse = await client.PostAsync(fullUrl, new StreamContent(stream)).ConfigureAwait(false);
+                httpResponse.EnsureSuccessStatusCode();
+            }
+        }
+
+        public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
+        {
+                var fullUrl = ApplicationConstant.urlService + ApplicationConstant.downloadFileAction + foxxFileName;
+                var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
+                httpResponse.EnsureSuccessStatusCode();
+
+                byte[] response = null;
+                if (httpResponse.IsSuccessStatusCode)
+                    response = await httpResponse.Content.ReadAsByteArrayAsync();
+                return response;
         }
     }
 }
