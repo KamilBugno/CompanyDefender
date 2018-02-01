@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<Mail>
+@model PersonMailViewModel
 
 <!doctype html>
 <html>
@@ -30,25 +30,23 @@
     <div id="mynetwork"></div>
 
     <script type="text/javascript">
-    // create an array with nodes
-    var nodes = new vis.DataSet([
-        { id: 1, label: 'a' },
-        { id: 2, label: 'b' },
-        { id: 3, label: 'c' }
-    ]);
 
-    var data = @JavaScriptConvert.SerializeObjectToJson(Model);
-    // create an array with edges
-    var edges = new vis.DataSet(data);
+        var persons = @JavaScriptConvert.SerializeObjectToJson(Model.PersonsMails);
+        // create an array with nodes
+        var nodes = new vis.DataSet(persons);
 
-  // create a network
-  var container = document.getElementById('mynetwork');
-  var data = {
-    nodes: nodes,
-    edges: edges
-  };
-  var options = {};
-  var network = new vis.Network(container, data, options);
+        var mails = @JavaScriptConvert.SerializeObjectToJson(Model.Mails);
+        // create an array with edges
+        var edges = new vis.DataSet(mails);
+
+        // create a network
+        var container = document.getElementById('mynetwork');
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {};
+        var network = new vis.Network(container, data, options);
     </script>
 
 

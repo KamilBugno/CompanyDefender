@@ -31,7 +31,16 @@ namespace CompanyDefender.Controllers
                 new Mail(2, 3)
             };
 
-            return View(mails);
+            var persons = new List<PersonMail>
+            {
+                new PersonMail(1, "A1"),
+                new PersonMail(2, "B2"),
+                new PersonMail(3, "C3")
+            };
+
+            var personMailViewModel = new PersonMailViewModel(mails, persons);
+
+            return View(personMailViewModel);
         }
 
         public ActionResult About()
