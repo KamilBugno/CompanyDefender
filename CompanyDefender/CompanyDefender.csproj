@@ -146,9 +146,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Constant\ApplicationConstant.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Converters\JavaScriptConvert.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mail.cs" />
+    <Compile Include="Models\PersonMailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REST\RESTfulClient.cs" />
   </ItemGroup>
@@ -193,7 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

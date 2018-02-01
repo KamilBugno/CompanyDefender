@@ -1,7 +1,9 @@
-﻿@{
+﻿@using CompanyDefender.Models;
+@using CompanyDefender.Converters;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model List<Mail>
 
 <!doctype html>
 <html>
@@ -30,16 +32,14 @@
     <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([
-        { id: 1, label: 'Jan Nowak' },
-        { id: 2, label: 'Kamil Bugno' },
-        { id: 3, label: 'Anna Kowalska' }
+        { id: 1, label: 'a' },
+        { id: 2, label: 'b' },
+        { id: 3, label: 'c' }
     ]);
 
+    var data = @JavaScriptConvert.SerializeObjectToJson(Model);
     // create an array with edges
-    var edges = new vis.DataSet([
-        { from: 1, to: 2, arrows: 'to' },
-        { from: 2, to: 3, arrows: 'to' }
-    ]);
+    var edges = new vis.DataSet(data);
 
   // create a network
   var container = document.getElementById('mynetwork');
