@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title — company security management system</title>
@@ -40,6 +41,19 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+
+        
+        $(document).ready(function () {
+            $('#menu li').hover(function () {
+                $(this).animate({ paddingLeft: '+=15px' }, 200);
+            }, function () {
+                $(this).animate({ paddingLeft: '-=15px' }, 200);
+            });
+            
+        });
+    </script>
    
 </body>
 </html>

@@ -1,6 +1,9 @@
 ﻿.zebra {
     background-color: #80bfff;
 }
+.zebraHover {
+    background-color: #ffa366;
+}
 #mynetwork {
     width: 1140px;
     height: 400px;

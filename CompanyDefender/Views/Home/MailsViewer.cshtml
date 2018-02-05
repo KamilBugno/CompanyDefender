@@ -16,23 +16,27 @@
 <body>
     <h2>System mailowy</h2>
     <div id="mynetwork"></div>
-   
-    <table id="mails" class="table table-bordered table-responsive table-hover">
-        <tr>
-            <th>Nadawca</th>
-            <th>Odbiorca</th>
-            <th>Temat wiadomości</th>
-            <th>Treść wiadomości</th>
-        </tr>
-        @foreach (var mailsRow in Model.MailsTable)
-        {
+    <p><br>Lista wysłanych maili:</p>
+    <table class="data table table-bordered table-responsive" id="mails">
+        <thead>
             <tr>
-                <td>@mailsRow.FullNameFrom</td>
-                <td>@mailsRow.FullNameTo</td>
-                <td>@mailsRow.Topic</td>
-                <td>@mailsRow.Body</td>
+                <th>Nadawca</th>
+                <th>Odbiorca</th>
+                <th>Temat wiadomości</th>
+                <th>Treść wiadomości</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var mailsRow in Model.MailsTable)
+            {
+                <tr>
+                    <td>@mailsRow.FullNameFrom</td>
+                    <td>@mailsRow.FullNameTo</td>
+                    <td>@mailsRow.Topic</td>
+                    <td>@mailsRow.Body</td>
+                </tr>
+            }
+        </tbody>
     </table>  
 
     <script type="text/javascript">
@@ -52,7 +56,13 @@
         var network = new vis.Network(container, data, options);
 
         $(document).ready(function () {
-            $('#mails  tr:odd').addClass('zebra')
+            $('#mails tr:odd').addClass('zebra');
+            
+            $('#mails tbody tr').hover(function () {
+                $(this).addClass('zebraHover');
+            }, function () {
+                $(this).removeClass('zebraHover');
+            });
         });
     </script>
 
