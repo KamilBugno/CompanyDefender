@@ -5,13 +5,13 @@ using System.Web;
 
 namespace CompanyDefender.Models
 {
-    public class MailGraph
+    public class MailGraphViewModel
     {
         public string Arrows;
         public int From;
         public int To;
 
-        public MailGraph(int from, int to)
+        public MailGraphViewModel(int from, int to)
         {
             Arrows = "To";
             From = from;

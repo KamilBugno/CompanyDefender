@@ -1,10 +1,19 @@
-﻿.column {
-    float: left;
-    width: 50%;
+﻿.zebra {
+    background-color: #80bfff;
+}
+#mynetwork {
+    width: 1140px;
+    height: 400px;
+    border: 4px dotted #80bfff;
+
+}
+.navbar-inverse {
+    background-color: #80bfff !important;
+}
+.navbar-brand {
+    color: #000000 !important;
+}
+.nav.navbar-nav li a {
+    color: #000000 !important;
 }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}

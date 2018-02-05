@@ -150,10 +150,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\MailGraph.cs" />
+    <Compile Include="Models\MailGraphViewModel.cs" />
     <Compile Include="Models\MailRecord.cs" />
-    <Compile Include="Models\PersonMailGraph.cs" />
-    <Compile Include="Models\PersonMailGraphViewModel.cs" />
+    <Compile Include="Models\PersonGraphViewModel.cs" />
+    <Compile Include="Models\PersonMailFullViewModel.cs" />
+    <Compile Include="Models\MailTableViewModel.cs" />
     <Compile Include="PersonMailGraphVMCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REST\RESTfulClient.cs" />

@@ -9,27 +9,32 @@ namespace CompanyDefender
 {
     public class PersonMailGraphVMCreator
     {
-        public PersonMailGraphViewModel CreateFromMailRecords(List<MailRecord> mailsFromRest)
+        public PersonMailFullViewModel CreateFromMailRecords(List<MailRecord> mailsFromRest)
         {
-            var mails = new List<MailGraph>();
-            var persons = new List<PersonMailGraph>();
+            var mailsGraph = new List<MailGraphViewModel>();
+            var personsGraph = new List<PersonGraphViewModel>();
+            var mailsTable = new List<MailTableViewModel>();
             foreach (MailRecord mailRecord in mailsFromRest)
             {
                 var idFrom = GetId(mailRecord.from);
                 var idTo = GetId(mailRecord.to);
-                mails.Add(new MailGraph(idFrom, idTo));
 
-                if (!persons.Exists(person => person.Id == idFrom))
+                mailsGraph.Add(new MailGraphViewModel(idFrom, idTo));
+
+                mailsTable.Add(new MailTableViewModel(mailRecord.full_name_from, mailRecord.full_name_to,
+                    mailRecord.topic, mailRecord.body));
+
+                if (!personsGraph.Exists(person => person.Id == idFrom))
                 {
-                    persons.Add(new PersonMailGraph(idFrom, mailRecord.full_name_from));
+                    personsGraph.Add(new PersonGraphViewModel(idFrom, mailRecord.full_name_from));
                 }
-                if (!persons.Exists(person => person.Id == idTo))
+                if (!personsGraph.Exists(person => person.Id == idTo))
                 {
-                    persons.Add(new PersonMailGraph(idTo, mailRecord.full_name_to));
+                    personsGraph.Add(new PersonGraphViewModel(idTo, mailRecord.full_name_to));
                 }
             }
 
-            return new PersonMailGraphViewModel(mails, persons);
+            return new PersonMailFullViewModel(mailsGraph, personsGraph, mailsTable);
         }
 
         private int GetId(string key)

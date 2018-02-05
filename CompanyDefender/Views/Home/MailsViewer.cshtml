@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model PersonMailGraphViewModel
+@model PersonMailFullViewModel
 
 <!doctype html>
 <html>
@@ -11,37 +11,36 @@
     <title>Mails viewer</title>
 
     <script type="text/javascript" src="~/Scripts/vis.js"></script>
-   
-    <link href="~/Content/my-css.css" rel="stylesheet" type="text/css" >
-
-    <style type="text/css">
-        #mynetwork {
-            width: 1100px;
-            height: 400px;
-            border: 1px solid lightgray;
-        }
-    </style>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
 </head>
 <body>
     <h2>System mailowy</h2>
     <div id="mynetwork"></div>
-    <div class="row">
-        <div class="column">
-            <h2>Column 1</h2>
-            <p>Some text 1..</p>
-        </div>
-        <div class="column">
-            <h2>Column 2</h2>
-            <p>Some text 2..</p>
-        </div>
-    </div>
+   
+    <table id="mails" class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Nadawca</th>
+            <th>Odbiorca</th>
+            <th>Temat wiadomości</th>
+            <th>Treść wiadomości</th>
+        </tr>
+        @foreach (var mailsRow in Model.MailsTable)
+        {
+            <tr>
+                <td>@mailsRow.FullNameFrom</td>
+                <td>@mailsRow.FullNameTo</td>
+                <td>@mailsRow.Topic</td>
+                <td>@mailsRow.Body</td>
+            </tr>
+        }
+    </table>  
 
     <script type="text/javascript">
 
-        var persons = @JavaScriptConvert.SerializeObjectToJson(Model.PersonsMails);
+        var persons = @JavaScriptConvert.SerializeObjectToJson(Model.PersonsGraph);
         var nodes = new vis.DataSet(persons);
 
-        var mails = @JavaScriptConvert.SerializeObjectToJson(Model.Mails);
+        var mails = @JavaScriptConvert.SerializeObjectToJson(Model.MailsGraph);
         var edges = new vis.DataSet(mails);
 
         var container = document.getElementById('mynetwork');
@@ -51,6 +50,10 @@
         };
         var options = {};
         var network = new vis.Network(container, data, options);
+
+        $(document).ready(function () {
+            $('#mails  tr:odd').addClass('zebra')
+        });
     </script>
 
 </body>
