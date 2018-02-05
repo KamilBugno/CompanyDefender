@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -12,10 +13,12 @@ namespace CompanyDefender.Controllers
     public class HomeController : Controller
     {
         private RESTfulClient restfulClient;
+        private PersonMailGraphVMCreator personMailGraphVMCreator;
 
         public HomeController()
         {
             restfulClient = new RESTfulClient();
+            personMailGraphVMCreator = new PersonMailGraphVMCreator();
         }
 
         public ActionResult Index()
@@ -25,20 +28,11 @@ namespace CompanyDefender.Controllers
 
         public ActionResult MailsViewer()
         {
-            var mails = new List<Mail>
-            {
-                new Mail(1, 2),
-                new Mail(2, 3)
-            };
+            var jsonResponse = restfulClient.GetMailsAsync().Result;
 
-            var persons = new List<PersonMail>
-            {
-                new PersonMail(1, "A1"),
-                new PersonMail(2, "B2"),
-                new PersonMail(3, "C3")
-            };
+            List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
 
-            var personMailViewModel = new PersonMailViewModel(mails, persons);
+            var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
             return View(personMailViewModel);
         }
@@ -47,9 +41,9 @@ namespace CompanyDefender.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            var response = restfulClient.GetHelloAsync().Result;
+            
 
-            return View((object)response);
+            return View((object)"hello");
         }
 
         public FileResult Contact()

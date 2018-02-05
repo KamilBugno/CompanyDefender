@@ -5,12 +5,12 @@ using System.Web;
 
 namespace CompanyDefender.Models
 {
-    public class PersonMail
+    public class PersonMailGraph
     {
         public int Id { set; get; }
         public string Label { set; get; }
         
-        public PersonMail(int id, string label)
+        public PersonMailGraph(int id, string label)
         {
             Id = id;
             Label = label;

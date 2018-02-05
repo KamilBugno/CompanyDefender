@@ -18,15 +18,15 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
-        public async Task<String> GetHelloAsync()
+        public async Task<String> GetMailsAsync()
         {
             String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.helloWorldAction)
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.mailsAction)
                 .ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
                 response = await httpResponse.Content.ReadAsStringAsync();
-            
+
             return response;
         }
 
