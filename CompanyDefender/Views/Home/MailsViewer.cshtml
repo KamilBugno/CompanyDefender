@@ -39,6 +39,8 @@
         </tbody>
     </table>  
 
+    <a href="#">Na górę strony</a>
+
     <script type="text/javascript">
 
         var persons = @JavaScriptConvert.SerializeObjectToJson(Model.PersonsGraph);
@@ -62,6 +64,11 @@
                 $(this).addClass('zebraHover');
             }, function () {
                 $(this).removeClass('zebraHover');
+            });
+
+            $('a[href=#]').click(function () {
+                $('html').animate({ scrollTop: 0 }, 'slow');
+                return false;
             });
         });
     </script>
