@@ -26,13 +26,14 @@ namespace CompanyDefender.Controllers
             return View();
         }
 
-        public ActionResult MailsViewer()
+        public ActionResult MailsViewer(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.GetMailsAsync().Result;
+            var jsonResponse = restfulClient.GetMailsAsync(personMailFullViewModelFromForm.Query).Result;
 
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
 
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
+
 
             return View(personMailViewModel);
         }

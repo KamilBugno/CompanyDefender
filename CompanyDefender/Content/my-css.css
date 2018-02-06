@@ -19,4 +19,27 @@
 .nav.navbar-nav li a {
     color: #000000 !important;
 }
-
+#submitId {
+    background-color: #80bfff;
+    border: none;
+    color: white;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.TextBox {
+    background-color: #e6f0ff;
+    border: 2px solid #80bfff;
+    color: black;
+    padding: 4px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}

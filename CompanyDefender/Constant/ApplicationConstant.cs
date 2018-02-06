@@ -10,6 +10,6 @@ namespace CompanyDefender.Constant
         public static string urlService = "http://127.0.0.1:8529/_db/_system/foxx-service/";
         public static string uploadFileAction = "save-file/";
         public static string downloadFileAction = "download-file/";
-        public static string mailsAction = "get-mails";
+        public static string mailsAction = "get-mails/";
     }
 }

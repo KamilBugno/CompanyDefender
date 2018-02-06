@@ -18,10 +18,12 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
-        public async Task<String> GetMailsAsync()
+        public async Task<String> GetMailsAsync(string query)
         {
+            if (query == null)
+                query = String.Empty;
             String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.mailsAction)
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.mailsAction + query)
                 .ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)

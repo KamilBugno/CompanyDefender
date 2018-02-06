@@ -9,7 +9,7 @@ namespace CompanyDefender
 {
     public class PersonMailGraphVMCreator
     {
-        public PersonMailFullViewModel CreateFromMailRecords(List<MailRecord> mailsFromRest)
+        public PersonMailFullViewModel CreateFromMailRecords(List<MailRecord> mailsFromRest, string query = null)
         {
             var mailsGraph = new List<MailGraphViewModel>();
             var personsGraph = new List<PersonGraphViewModel>();
@@ -34,7 +34,7 @@ namespace CompanyDefender
                 }
             }
 
-            return new PersonMailFullViewModel(mailsGraph, personsGraph, mailsTable);
+            return new PersonMailFullViewModel(mailsGraph, personsGraph, mailsTable, query);
         }
 
         private int GetId(string key)

@@ -15,6 +15,19 @@
 </head>
 <body>
     <h2>System mailowy</h2>
+
+    @using (Html.BeginForm("MailsViewer", "Home", FormMethod.Post))
+    {
+        <form>
+            <div>
+                @Html.TextBoxFor(model => model.Query, new { @class = "TextBox" })
+                <input type="submit" id="submitId" value="Wyszukaj maile" />
+
+            </div>
+        </form>
+    }
+
+
     <div id="mynetwork"></div>
     <p><br>Lista wysłanych maili:</p>
     <table class="data table table-bordered table-responsive" id="mails">
