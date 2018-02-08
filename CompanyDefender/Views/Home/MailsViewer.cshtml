@@ -33,6 +33,7 @@
     <table class="data table table-bordered table-responsive" id="mails">
         <thead>
             <tr>
+                <th id="sort-id">Id</th>
                 <th>Nadawca</th>
                 <th>Odbiorca</th>
                 <th>Temat wiadomości</th>
@@ -43,6 +44,7 @@
             @foreach (var mailsRow in Model.MailsTable)
             {
                 <tr>
+                    <td>@mailsRow.Id</td>
                     <td>@mailsRow.FullNameFrom</td>
                     <td>@mailsRow.FullNameTo</td>
                     <td>@mailsRow.Topic</td>
@@ -67,8 +69,29 @@
             nodes: nodes,
             edges: edges
         };
-        var options = {};
+        var options = {
+            interaction: { hover: true },
+            manipulation: {
+                enabled: true
+            },
+            physics: {
+                forceAtlas2Based: {
+                    gravitationalConstant: -26,
+                    centralGravity: 0.005,
+                    springLength: 230,
+                    springConstant: 0.18
+                },
+                maxVelocity: 146,
+                solver: 'forceAtlas2Based',
+                timestep: 0.35,
+                stabilization: { iterations: 150 }
+            }};
         var network = new vis.Network(container, data, options);
+
+        network.on("selectEdge", function (params) {
+            //alert('selectEdge Event:' + params);
+            //console.log('selectEdge Event:', params);
+        });
 
         $(document).ready(function () {
             $('#mails tr:odd').addClass('zebra');
@@ -83,6 +106,7 @@
                 $('html').animate({ scrollTop: 0 }, 'slow');
                 return false;
             });
+
         });
     </script>
 

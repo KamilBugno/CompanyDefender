@@ -16,12 +16,12 @@ namespace CompanyDefender
             var mailsTable = new List<MailTableViewModel>();
             foreach (MailRecord mailRecord in mailsFromRest)
             {
-                var idFrom = GetId(mailRecord.from);
-                var idTo = GetId(mailRecord.to);
+                var idFrom = GetPersonId(mailRecord.from);
+                var idTo = GetPersonId(mailRecord.to);
 
-                mailsGraph.Add(new MailGraphViewModel(idFrom, idTo));
+                mailsGraph.Add(new MailGraphViewModel(GetMailId(mailRecord.mail_key), idFrom, idTo));
 
-                mailsTable.Add(new MailTableViewModel(mailRecord.full_name_from, mailRecord.full_name_to,
+                mailsTable.Add(new MailTableViewModel(GetMailId(mailRecord.mail_key), mailRecord.full_name_from, mailRecord.full_name_to,
                     mailRecord.topic, mailRecord.body));
 
                 if (!personsGraph.Exists(person => person.Id == idFrom))
@@ -37,9 +37,14 @@ namespace CompanyDefender
             return new PersonMailFullViewModel(mailsGraph, personsGraph, mailsTable, query);
         }
 
-        private int GetId(string key)
+        private int GetPersonId(string key)
         {
             return Int32.Parse(Regex.Replace(key, "HRSystem/", ""));
+        }
+
+        private string GetMailId(string key)
+        {
+            return Regex.Replace(key, "Mails/", "");
         }
 
     }

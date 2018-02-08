@@ -32,16 +32,6 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        public async Task UploadFileToFoxxAsync(string filePathFromClient, string foxxFileName)
-        {
-            using (var stream = File.OpenRead(filePathFromClient))
-            {
-                var fullUrl = ApplicationConstant.urlService + ApplicationConstant.uploadFileAction + foxxFileName;
-                var httpResponse = await client.PostAsync(fullUrl, new StreamContent(stream)).ConfigureAwait(false);
-                httpResponse.EnsureSuccessStatusCode();
-            }
-        }
-
         public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
         {
                 var fullUrl = ApplicationConstant.urlService + ApplicationConstant.downloadFileAction + foxxFileName;

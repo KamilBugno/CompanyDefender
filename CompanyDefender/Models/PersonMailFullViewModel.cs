@@ -19,11 +19,13 @@ namespace CompanyDefender.Models
         }
 
         public PersonMailFullViewModel(List<MailGraphViewModel> mails, List<PersonGraphViewModel> personsMails,
-            List<MailTableViewModel> personViewModel, string query)
+            List<MailTableViewModel> mailsTable, string query)
         {
             MailsGraph = mails;
             PersonsGraph = personsMails;
-            MailsTable = personViewModel;
+            MailsTable = (from mail in mailsTable
+                         orderby Int32.Parse(mail.Id)
+                         select mail).ToList();
             Query = query;
         }
     }

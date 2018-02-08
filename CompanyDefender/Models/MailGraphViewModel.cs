@@ -10,12 +10,14 @@ namespace CompanyDefender.Models
         public string Arrows;
         public int From;
         public int To;
+        public string Label;
 
-        public MailGraphViewModel(int from, int to)
+        public MailGraphViewModel(string label, int from, int to)
         {
             Arrows = "To";
             From = from;
             To = to;
+            Label = label;
         }
         //...
     }
