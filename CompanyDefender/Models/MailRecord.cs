@@ -16,5 +16,6 @@ namespace CompanyDefender.Models
         public string to_mail_address { get; set; }
         public string topic { get; set; }
         public string body { get; set; }
+        public string has_attachment { get; set; }
     }
 }

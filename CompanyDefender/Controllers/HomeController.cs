@@ -26,16 +26,31 @@ namespace CompanyDefender.Controllers
             return View();
         }
 
-        public ActionResult MailsViewer(PersonMailFullViewModel personMailFullViewModelFromForm)
+        public ActionResult AllMails(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.GetMailsAsync(personMailFullViewModelFromForm.Query).Result;
-
+            var jsonResponse = restfulClient.GetAllMailsAsync().Result;
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
-
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
+            return View("MailsViewer", personMailViewModel);
+        }
 
-            return View(personMailViewModel);
+        public ActionResult SearchByBody(PersonMailFullViewModel personMailFullViewModelFromForm)
+        {
+            var jsonResponse = restfulClient.SearchMailsByBodyAsync(personMailFullViewModelFromForm.Query).Result;
+            List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
+            var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
+
+            return View("MailsViewer", personMailViewModel);
+        }
+
+        public ActionResult SearchByAttachment(PersonMailFullViewModel personMailFullViewModelFromForm)
+        {
+            var jsonResponse = restfulClient.SearchMailsByAttachmentAsync(personMailFullViewModelFromForm.Query).Result;
+            List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
+            var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
+
+            return View("MailsViewer", personMailViewModel);
         }
 
         public ActionResult About()

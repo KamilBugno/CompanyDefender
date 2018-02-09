@@ -38,7 +38,8 @@ namespace CompanyDefender.Tests
                     from_mail_address = "jan.kowalski@company.com",
                     to_mail_address = "alicja.kowalska@company.com",
                     topic = "What about dinner?",
-                    body = "Do you want to eat dinner with me at 12?"
+                    body = "Do you want to eat dinner with me at 12?",
+                    has_attachment = "1"
                 },
                 new MailRecord
                 {
@@ -50,7 +51,8 @@ namespace CompanyDefender.Tests
                     from_mail_address = "jan.kowalski@company.com",
                     to_mail_address = "kamil.nowak@company.com",
                     topic = "Spotkanie",
-                    body = "Zapraszam na spotkanie zespolu o 14.00 w sali 391"
+                    body = "Zapraszam na spotkanie zespolu o 14.00 w sali 391",
+                    has_attachment = "0"
                 }
             };
             return listOfMailRecord;
@@ -69,6 +71,7 @@ namespace CompanyDefender.Tests
             Assert.AreEqual("Alicja Kowalska", mailTableViewModel.FullNameTo);
             Assert.AreEqual("What about dinner?", mailTableViewModel.Topic);
             Assert.AreEqual("Do you want to eat dinner with me at 12?", mailTableViewModel.Body);
+            Assert.AreEqual(true, mailTableViewModel.HasAttachment);
         }
 
         private void CheckSecondElementOfMailsTable(MailTableViewModel mailTableViewModel)
@@ -78,6 +81,7 @@ namespace CompanyDefender.Tests
             Assert.AreEqual("Kamil Nowak", mailTableViewModel.FullNameTo);
             Assert.AreEqual("Spotkanie", mailTableViewModel.Topic);
             Assert.AreEqual("Zapraszam na spotkanie zespolu o 14.00 w sali 391", mailTableViewModel.Body);
+            Assert.AreEqual(false, mailTableViewModel.HasAttachment);
         }
 
         private void CheckMailsGraphCorrectness(List<MailGraphViewModel> mailsGraphList)

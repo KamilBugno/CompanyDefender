@@ -22,7 +22,7 @@ namespace CompanyDefender
                 mailsGraph.Add(new MailGraphViewModel(GetMailId(mailRecord.mail_key), idFrom, idTo));
 
                 mailsTable.Add(new MailTableViewModel(GetMailId(mailRecord.mail_key), mailRecord.full_name_from, mailRecord.full_name_to,
-                    mailRecord.topic, mailRecord.body));
+                    mailRecord.topic, mailRecord.body, mailRecord.has_attachment == "1" ? true : false));
 
                 if (!personsGraph.Exists(person => person.Id == idFrom))
                 {

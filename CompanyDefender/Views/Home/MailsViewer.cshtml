@@ -16,15 +16,13 @@
 <body>
     <h2>System mailowy</h2>
 
-    @using (Html.BeginForm("MailsViewer", "Home", FormMethod.Post))
+   
+    @using (Html.BeginForm())
     {
-        <form>
-            <div>
-                @Html.TextBoxFor(model => model.Query, new { @class = "TextBox" })
-                <input type="submit" id="submitId" value="Wyszukaj maile" />
-
-            </div>
-        </form>
+       @Html.TextBoxFor(model => model.Query, new { @class = "TextBox" })
+       <input type="submit" id="submitBody" value="Wyszukaj w treści maili" formaction="SearchByBody" formmethod="post" />
+       <input type="submit" id="submitAttachment" value="Wyszukaj w załączniku maili" formaction="SearchByAttachment" formmethod="post" />
+       <input type="submit" id="submitReset" value="Wyczyść" formaction="AllMails" formmethod="post" />
     }
 
 
@@ -38,6 +36,7 @@
                 <th>Odbiorca</th>
                 <th>Temat wiadomości</th>
                 <th>Treść wiadomości</th>
+                <th>Załącznik</th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +48,7 @@
                     <td>@mailsRow.FullNameTo</td>
                     <td>@mailsRow.Topic</td>
                     <td>@mailsRow.Body</td>
+                    <td>@mailsRow.HasAttachment</td>
                 </tr>
             }
         </tbody>
