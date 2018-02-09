@@ -18,12 +18,10 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
-        public async Task<String> SearchMailsByBodyAsync(string query)
+        public async Task<String> GetAllMailsAsync()
         {
-            if (query == null)
-                query = String.Empty;
             String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByBodyAction + query)
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.getAllMails)
                 .ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -32,10 +30,12 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        public async Task<String> GetAllMailsAsync()
+        public async Task<String> SearchMailsByBodyAsync(string query)
         {
+            if (query == null)
+                query = String.Empty;
             String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.getAllMails)
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByBodyAction + query)
                 .ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)

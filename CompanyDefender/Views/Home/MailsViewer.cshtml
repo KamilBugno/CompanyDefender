@@ -48,7 +48,19 @@
                     <td>@mailsRow.FullNameTo</td>
                     <td>@mailsRow.Topic</td>
                     <td>@mailsRow.Body</td>
-                    <td>@mailsRow.HasAttachment</td>
+                    <td>
+                        @if (mailsRow.HasAttachment)
+                        {
+                            @Html.ActionLink("Pobierz załącznik",
+                                             "DownloadAttachment",
+                                             new { fileName = mailsRow.Id },
+                                             new { @class = "download" })
+                        }
+                        else
+                        {
+                            <p class="no-download">Brak załącznika</p>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

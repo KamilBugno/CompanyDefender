@@ -62,22 +62,18 @@ namespace CompanyDefender.Controllers
             return View((object)"hello");
         }
 
-        public FileResult Contact()
+        public FileResult DownloadAttachment(string fileName)
         {
-
-
-            byte[] fileBytes = restfulClient.DownloadFileFromFoxxAsync("23.pdf").Result;//System.IO.File.ReadAllBytes(@"d:\rok-1984.jpg");
-            string fileName = "23.pdf";
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-
-
+            var fullFileName = fileName + ".pdf";
+            byte[] fileBytes = restfulClient.DownloadFileFromFoxxAsync(fullFileName).Result;
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fullFileName);
         }
 
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
-        //    return View();
-        //}
+            return View();
+        }
     }
 }
