@@ -26,7 +26,7 @@ namespace CompanyDefender.Controllers
             return View();
         }
 
-        public ActionResult AllMails(PersonMailFullViewModel personMailFullViewModelFromForm)
+        public ActionResult AllMails()
         {
             var jsonResponse = restfulClient.GetAllMailsAsync().Result;
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
