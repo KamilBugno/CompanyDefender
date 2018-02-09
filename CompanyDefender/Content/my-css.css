@@ -69,3 +69,40 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.header {
+    background-color: #cce0ff;
+    text-align: center;
+    padding: 20px;
+}
+
+.feature {
+    background-color: #80bfff;
+    float: left;
+    width: 33.33%;
+    height: 400px;
+    padding: 15px;
+    border-style: solid;
+    border-color: white;
+    border-width: 10px;
+}
+
+.text-h2 {
+    text-align: center;
+    height: 20%;
+    color: black;
+}
+
+.text-p {
+    text-indent: 50px;
+}
+
+.my-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.Image img {
+    width: 100%;
+}
