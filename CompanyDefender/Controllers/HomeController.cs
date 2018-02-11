@@ -21,7 +21,7 @@ namespace CompanyDefender.Controllers
             personMailGraphVMCreator = new PersonMailGraphVMCreator();
         }
 
-        public ActionResult Index()
+        public ActionResult MainPage()
         {
             return View();
         }
@@ -32,7 +32,7 @@ namespace CompanyDefender.Controllers
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
-            return View("MailsViewer", personMailViewModel);
+            return View("CorrespondenceAnalysis", personMailViewModel);
         }
 
         public ActionResult SearchByBody(PersonMailFullViewModel personMailFullViewModelFromForm)
@@ -41,7 +41,7 @@ namespace CompanyDefender.Controllers
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
-            return View("MailsViewer", personMailViewModel);
+            return View("CorrespondenceAnalysis", personMailViewModel);
         }
 
         public ActionResult SearchByAttachment(PersonMailFullViewModel personMailFullViewModelFromForm)
@@ -50,16 +50,14 @@ namespace CompanyDefender.Controllers
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
-            return View("MailsViewer", personMailViewModel);
+            return View("CorrespondenceAnalysis", personMailViewModel);
         }
 
-        public ActionResult About()
+        public ActionResult InternalSystemsAnalysis()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "InternalSystemsAnalysis";
 
-            
-
-            return View((object)"hello");
+            return View();
         }
 
         public FileResult DownloadAttachment(string fileName)
@@ -69,7 +67,7 @@ namespace CompanyDefender.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fullFileName);
         }
 
-        public ActionResult Contact()
+        public ActionResult DeviceLogsAnalysis()
         {
             ViewBag.Message = "Your contact page.";
 

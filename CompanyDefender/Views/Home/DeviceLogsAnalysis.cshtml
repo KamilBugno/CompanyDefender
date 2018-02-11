@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+</head>
+<body>
+    <h2>Analiza logów urządzeń</h2>
+    <div class="charts">
+        <h3>Aktualizacja antywirusa</h3>
+        <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
+        <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
+    </div>
+
+    <script>
+        new Chart('chart-0', {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: [1, 4, 5, 7, 8, 10, 14, 16, 19, 24, 27, 29],
+                    backgroundColor: "#80bfff",
+                    borderColor: "#005ce6",
+                    label: 'Aktualizacja antywirusa'
+                }],
+                labels: Array.apply(null, Array(30)).map(function (_, i) { return i + 1; }),
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                }
+            }
+        });
+
+        new Chart('chart-1', {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [30, 70],
+                    backgroundColor: ["#80bfff", "#003d99"],
+                }],
+                labels: ["Zaktualizowany", "Niezaktualizowany"],
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                }
+            }
+        });
+
+        $(document).ready(function () {
+            $('h3').addClass('text-title-chart');
+
+        });
+
+    </script>
+</body>
+</html>

@@ -8,7 +8,6 @@
     width: 1140px;
     height: 400px;
     border: 4px dotted #80bfff;
-
 }
 .navbar-inverse {
     background-color: #80bfff !important;
@@ -106,3 +105,15 @@
 .Image img {
     width: 100%;
 }
+
+.charts {
+    min-width: 1000px;
+    min-height: 400px;
+    background-color: #cce0ff;
+}
+
+.text-title-chart {
+    color: #001f4d;
+    text-align: center;
+}
+
