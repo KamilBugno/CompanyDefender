@@ -18,6 +18,20 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
+        public async Task<String> GetDateForAntivirusLineChartAsync(DateTime startDate, DateTime endDate)
+        {
+            String response = null;
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService 
+                + ApplicationConstant.getAntivirusDateForLineChart
+                + startDate + "/" + endDate)
+                .ConfigureAwait(false);
+
+            if (httpResponse.IsSuccessStatusCode)
+                response = await httpResponse.Content.ReadAsStringAsync();
+
+            return response;
+        }
+
         public async Task<String> GetAllMailsAsync()
         {
             String response = null;
@@ -60,14 +74,14 @@ namespace CompanyDefender.REST
 
         public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
         {
-                var fullUrl = ApplicationConstant.urlService + ApplicationConstant.downloadFileAction + foxxFileName;
-                var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
-                httpResponse.EnsureSuccessStatusCode();
+            var fullUrl = ApplicationConstant.urlService + ApplicationConstant.downloadFileAction + foxxFileName;
+            var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
+            httpResponse.EnsureSuccessStatusCode();
 
-                byte[] response = null;
-                if (httpResponse.IsSuccessStatusCode)
-                    response = await httpResponse.Content.ReadAsByteArrayAsync();
-                return response;
+            byte[] response = null;
+            if (httpResponse.IsSuccessStatusCode)
+                response = await httpResponse.Content.ReadAsByteArrayAsync();
+            return response;
         }
     }
 }

@@ -13,5 +13,6 @@ namespace CompanyDefender.Constant
         public static string searchMailsByBodyAction = "get-mails-by-body/";
         public static string searchMailsByAttachmentAction = "get-mails-by-attachment/";
         public static string getAllMails = "get-all-mails/";
+        public static string getAntivirusDateForLineChart = "antivirus-line-chart/";
     }
 }

@@ -67,7 +67,7 @@ namespace CompanyDefender.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fullFileName);
         }
 
-        public ActionResult DeviceLogsAnalysis()
+        public ActionResult DeviceLogsAnalysis(string startDate, string endDate)
         {
             ViewBag.Message = "Your contact page.";
 
