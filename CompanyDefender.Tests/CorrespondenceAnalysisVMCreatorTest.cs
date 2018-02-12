@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace CompanyDefender.Tests
 {
     [TestClass]
-    public class PersonMailGraphVMCreatorTest
+    public class CorrespondenceAnalysisVMCreatorTest
     {
         [TestMethod]
         public void PersonMailGraphVMCreatorValuesTest()
         {
             var mailRecords = CreateListOfMailRecord();
 
-            var resultFromPersonMailGraphVMCreator = new PersonMailGraphVMCreator()
+            var resultFromPersonMailGraphVMCreator = new CorrespondenceAnalysisVMCreator()
                 .CreateFromMailRecords(mailRecords);
 
             CheckMailsGraphCorrectness(resultFromPersonMailGraphVMCreator.MailsGraph);

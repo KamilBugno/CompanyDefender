@@ -18,7 +18,7 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
-        public async Task<String> GetDateForAntivirusLineChartAsync(DateTime startDate, DateTime endDate)
+        public async Task<String> GetDateForAntivirusLineChartAsync(string startDate, string endDate)
         {
             String response = null;
             var httpResponse = await client.GetAsync(ApplicationConstant.urlService 

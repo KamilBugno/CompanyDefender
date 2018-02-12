@@ -7,7 +7,7 @@ using System.Web;
 
 namespace CompanyDefender
 {
-    public class PersonMailGraphVMCreator
+    public class CorrespondenceAnalysisVMCreator
     {
         public PersonMailFullViewModel CreateFromMailRecords(List<MailRecord> mailsFromRest, string query = null)
         {

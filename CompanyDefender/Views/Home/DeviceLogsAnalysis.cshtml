@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CompanyDefender.Converters;
+@{
     ViewBag.Title = "Analiza logów urządzeń";
 }
 
@@ -15,16 +16,19 @@
     </div>
 
     <script>
+
+        var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
+        var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
         new Chart('chart-0', {
             type: 'line',
             data: {
                 datasets: [{
-                    data: [1, 4, 5, 7, 8, 10, 14, 16, 19, 24, 27, 29],
+                    data: dataValues,
                     backgroundColor: "#80bfff",
                     borderColor: "#005ce6",
                     label: 'Aktualizacja antywirusa'
                 }],
-                labels: Array.apply(null, Array(30)).map(function (_, i) { return i + 1; }),
+                labels: labelValues,
             },
             options: {
                 plugins: {

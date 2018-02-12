@@ -1,4 +1,5 @@
 ﻿using CompanyDefender.Models;
+using CompanyDefender.Models.DeviceLogsAnalysis;
 using CompanyDefender.REST;
 using Newtonsoft.Json;
 using System;
@@ -13,12 +14,12 @@ namespace CompanyDefender.Controllers
     public class HomeController : Controller
     {
         private RESTfulClient restfulClient;
-        private PersonMailGraphVMCreator personMailGraphVMCreator;
+        private CorrespondenceAnalysisVMCreator personMailGraphVMCreator;
 
         public HomeController()
         {
             restfulClient = new RESTfulClient();
-            personMailGraphVMCreator = new PersonMailGraphVMCreator();
+            personMailGraphVMCreator = new CorrespondenceAnalysisVMCreator();
         }
 
         public ActionResult MainPage()
@@ -67,9 +68,21 @@ namespace CompanyDefender.Controllers
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fullFileName);
         }
 
-        public ActionResult DeviceLogsAnalysis(string startDate, string endDate)
+        public ActionResult DeviceLogsAnalysis(string startDate = null, string endDate = null)
         {
-            ViewBag.Message = "Your contact page.";
+            if (startDate == null)
+                startDate = new DateTime(2018, 1, 1).ToString();
+            if (endDate == null)
+                endDate = new DateTime(2018, 1, 30).ToString();
+
+            var jsonResponse = restfulClient.GetDateForAntivirusLineChartAsync(startDate, endDate).Result;
+            List<AntivirusUpdateData> antivirusData = JsonConvert.DeserializeObject<List<AntivirusUpdateData>>(jsonResponse);
+
+            var deviceLogsAntivirusAnalysisVMCreator = new DeviceLogsAntivirusAnalysisVMCreator(antivirusData, 
+                startDate, endDate);
+            var antivirusUpdateLineChartViewModel = deviceLogsAntivirusAnalysisVMCreator.CreateFromAntivirusUpdateData();
+
+            ViewBag.LineChartData = antivirusUpdateLineChartViewModel;
 
             return View();
         }
