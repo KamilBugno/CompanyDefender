@@ -9,9 +9,9 @@
 <html>
 <head>
     <title>Mails viewer</title>
-
+    <script type="text/javascript" src="~/Scripts/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="~/Scripts/vis.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    
 </head>
 <body>
     <h2>Analiza korespondencji</h2>
@@ -114,7 +114,7 @@
                 $(this).removeClass('zebraHover');
             });
 
-            $('a[href=#]').click(function () {
+            $('a[href="#"]').click(function () {
                 $('html').animate({ scrollTop: 0 }, 'slow');
                 return false;
             });

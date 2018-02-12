@@ -2,66 +2,65 @@
 @{
     ViewBag.Title = "Analiza logów urządzeń";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
-</head>
-<body>
-    <h2>Analiza logów urządzeń</h2>
-    <div class="charts">
-        <h3>Aktualizacja antywirusa</h3>
-        <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
-        <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
-    </div>
+<h2>Analiza logów urządzeń</h2>
 
-    <script>
+<input class="date-picker"/>
+@Html.TextBox("YourTextBox", "", new { @class = "date-picker" })
 
-        var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
-        var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
-        new Chart('chart-0', {
-            type: 'line',
-            data: {
-                datasets: [{
-                    data: dataValues,
-                    backgroundColor: "#80bfff",
-                    borderColor: "#005ce6",
-                    label: 'Aktualizacja antywirusa'
-                }],
-                labels: labelValues,
-            },
-            options: {
-                plugins: {
-                    filler: {
-                        propagate: true
-                    }
+<div class="charts">
+    <h3>Aktualizacja antywirusa</h3>
+    <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
+    <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
+</div>
+
+<script>
+    $('.date-picker').datepicker();
+
+    var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
+    var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
+    new Chart('chart-0', {
+        type: 'line',
+        data: {
+            datasets: [{
+                data: dataValues,
+                backgroundColor: "#80bfff",
+                borderColor: "#005ce6",
+                label: 'Aktualizacja antywirusa'
+            }],
+            labels: labelValues,
+        },
+        options: {
+            plugins: {
+                filler: {
+                    propagate: true
                 }
             }
-        });
+        }
+    });
 
-        new Chart('chart-1', {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [30, 70],
-                    backgroundColor: ["#80bfff", "#003d99"],
-                }],
-                labels: ["Zaktualizowany", "Niezaktualizowany"],
-            },
-            options: {
-                plugins: {
-                    filler: {
-                        propagate: true
-                    }
+    new Chart('chart-1', {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [30, 70],
+                backgroundColor: ["#80bfff", "#003d99"],
+            }],
+            labels: ["Zaktualizowany", "Niezaktualizowany"],
+        },
+        options: {
+            plugins: {
+                filler: {
+                    propagate: true
                 }
             }
-        });
+        }
+    });
 
-        $(document).ready(function () {
-            $('h3').addClass('text-title-chart');
+    $(document).ready(function () {
+        $('h3').addClass('text-title-chart');
+        
+    });
 
-        });
-
-    </script>
-</body>
-</html>
+</script>

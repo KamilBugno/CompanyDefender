@@ -71,9 +71,9 @@ namespace CompanyDefender.Controllers
         public ActionResult DeviceLogsAnalysis(string startDate = null, string endDate = null)
         {
             if (startDate == null)
-                startDate = new DateTime(2018, 1, 1).ToString();
+                startDate = new DateTime(2017, 12, 22).ToString();
             if (endDate == null)
-                endDate = new DateTime(2018, 1, 30).ToString();
+                endDate = new DateTime(2018, 1, 23).ToString();
 
             var jsonResponse = restfulClient.GetDateForAntivirusLineChartAsync(startDate, endDate).Result;
             List<AntivirusUpdateData> antivirusData = JsonConvert.DeserializeObject<List<AntivirusUpdateData>>(jsonResponse);
