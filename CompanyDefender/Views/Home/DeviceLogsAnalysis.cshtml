@@ -8,8 +8,8 @@
 
 @using (Html.BeginForm())
 {
-    @Html.TextBox("startDate", "2017-12-22", new { @class = "date-picker TextBox" })
-    @Html.TextBox("endDate", "2018-01-21", new { @class = "date-picker TextBox" })
+    @Html.TextBox("startDate", "2017-12-22", new { @class = "date-picker TextBox"})
+    @Html.TextBox("endDate", "2018-01-21", new { @class = "date-picker TextBox"})
     <input type="submit" id="submitDate" value="Zastosuj daty" formaction="DeviceLogsAnalysis" formmethod="post" />
 }
 
@@ -20,8 +20,7 @@
 </div>
 
 <script>
-    $('.date-picker').datepicker({ dateFormat: 'yy-mm-dd' });
-
+    var $jq = jQuery.noConflict();
     var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
     var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
     new Chart('chart-0', {
@@ -62,9 +61,37 @@
         }
     });
 
-    $(document).ready(function () {
-        $('h3').addClass('text-title-chart');
-        
+    var daysToAdd = 28;
+    $jq("#startDate").datepicker({
+        onSelect: function (selected) {
+            var date = new Date(selected);
+            date.setDate(date.getDate() + daysToAdd);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            var dtFormatted = year + '-' + month + '-' + day;
+            $jq("#endDate").datepicker("option", { maxDate: dtFormatted, dateFormat: 'yy-mm-dd' });
+        },
+        dateFormat: 'yy-mm-dd'
+
+    });
+
+    $jq("#endDate").datepicker({
+        onSelect: function (selected) {
+            var date = new Date(selected);
+            date.setDate(date.getDate() - daysToAdd);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            var dtFormatted = year + '-' + month + '-' + day;
+            $jq("#startDate").datepicker("option", { minDate: dtFormatted, dateFormat: 'yy-mm-dd' })
+        },
+        dateFormat: 'yy-mm-dd'
+    });
+
+    $jq(document).ready(function () {
+        $jq('h3').addClass('text-title-chart');
+
     });
 
 </script>
