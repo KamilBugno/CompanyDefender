@@ -18,7 +18,7 @@
 .nav.navbar-nav li a {
     color: #000000 !important;
 }
-#submitBody, #submitAttachment, #submitReset {
+#submitBody, #submitAttachment, #submitReset, #submitDate {
     background-color: #80bfff;
     border: none;
     color: white;
@@ -115,5 +115,9 @@
 .text-title-chart {
     color: #001f4d;
     text-align: center;
+}
+
+.input {
+    background-color: #cce0ff;
 }
 

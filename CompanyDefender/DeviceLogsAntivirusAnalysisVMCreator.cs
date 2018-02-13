@@ -15,8 +15,8 @@ namespace CompanyDefender
         public DeviceLogsAntivirusAnalysisVMCreator(List<AntivirusUpdateData> antivirusData,
             string startDate, string endDate)
         {
-            this.startDate = DateTime.Parse(startDate);
-            this.endDate = DateTime.Parse(endDate);
+            this.startDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
+            this.endDate = DateTime.ParseExact(endDate, "yyyy-MM-dd", null);
             this.antivirusData = antivirusData;
         }
 
