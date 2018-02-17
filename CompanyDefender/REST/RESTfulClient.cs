@@ -18,6 +18,20 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
+        public async Task<String> GetDateForAntivirusPieChartAsync(string startDate, string endDate)
+        {
+            String response = null;
+            var httpResponse = await client.GetAsync(ApplicationConstant.urlService
+                + ApplicationConstant.getAntivirusDateForPieChart
+                + startDate + "/" + endDate)
+                .ConfigureAwait(false);
+
+            if (httpResponse.IsSuccessStatusCode)
+                response = await httpResponse.Content.ReadAsStringAsync();
+
+            return response;
+        }
+
         public async Task<String> GetDateForAntivirusLineChartAsync(string startDate, string endDate)
         {
             String response = null;

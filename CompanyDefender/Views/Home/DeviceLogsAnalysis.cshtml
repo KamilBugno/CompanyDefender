@@ -43,11 +43,14 @@
         }
     });
 
+    var updated_quantity = @ViewBag.PieChartData.updated_quantity;
+    var not_updated_quantity = @ViewBag.PieChartData.not_updated_quantity;
+
     new Chart('chart-1', {
         type: 'pie',
         data: {
             datasets: [{
-                data: [30, 70],
+                data: [updated_quantity, not_updated_quantity],
                 backgroundColor: ["#80bfff", "#003d99"],
             }],
             labels: ["Zaktualizowany", "Niezaktualizowany"],

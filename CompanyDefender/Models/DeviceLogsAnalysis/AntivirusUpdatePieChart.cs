@@ -5,9 +5,9 @@ using System.Web;
 
 namespace CompanyDefender.Models.DeviceLogsAnalysis
 {
-    public class AntivirusUpdateData
+    public class AntivirusUpdatePieChart
     {
-        public string number_of_day { get; set; }
-        public string number_of_updates { get; set; }
+        public string updated_quantity { get; set; }
+        public string not_updated_quantity { get; set; }
     }
 }

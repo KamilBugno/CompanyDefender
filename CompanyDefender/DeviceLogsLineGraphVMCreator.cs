@@ -6,13 +6,13 @@ using System.Web;
 
 namespace CompanyDefender
 {
-    public class DeviceLogsAntivirusAnalysisVMCreator
+    public class DeviceLogsLineGraphVMCreator
     {
         private DateTime startDate;
         private DateTime endDate;
-        private List<AntivirusUpdateData> antivirusData;
+        private List<AntivirusUpdateLineChartData> antivirusData;
 
-        public DeviceLogsAntivirusAnalysisVMCreator(List<AntivirusUpdateData> antivirusData,
+        public DeviceLogsLineGraphVMCreator(List<AntivirusUpdateLineChartData> antivirusData,
             string startDate, string endDate)
         {
             this.startDate = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
@@ -43,7 +43,7 @@ namespace CompanyDefender
                 var dataInThisDay = antivirusData.Where(antivirusData => 
                     Int32.Parse(antivirusData.number_of_day) == date.Day).FirstOrDefault();
 
-                if (dataInThisDay != default(AntivirusUpdateData)) 
+                if (dataInThisDay != default(AntivirusUpdateLineChartData)) 
                 {
                     data.Add(Int32.Parse(dataInThisDay.number_of_updates));
                 }
