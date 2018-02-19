@@ -17,14 +17,42 @@
     <h3>Aktualizacja antywirusa</h3>
     <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
     <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
+    <button id="opener">Zobacz listę osób, które nie dokonały aktualizacji</button>
+
 </div>
+
+<div id="dialog" title="Basic dialog">
+    <div id="accordion">
+        <h3>Section 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        @foreach (var i in new int[] { 1, 2, 3, 4, 5})
+        {
+            <h3>Section @i</h3>
+            <div>
+                <p>
+                   lalalalal @i
+                </p>
+            </div>
+
+        }
+    </div>
+</div>
+
+
 
 <script>
     var $jq = jQuery.noConflict();
     var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
     var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
     new Chart('chart-0', {
-        type: 'line',
+        type: 'bar',
         data: {
             datasets: [{
                 data: dataValues,
@@ -92,8 +120,22 @@
         dateFormat: 'yy-mm-dd'
     });
 
+    $jq(function () {
+        $jq("#dialog").dialog({
+            autoOpen: false,
+            minHeight: 400,
+            minWidth : 700
+        });
+        $jq("#opener").click(function () {
+            $jq("#dialog").dialog("open");
+        });
+    });
+
     $jq(document).ready(function () {
         $jq('h3').addClass('text-title-chart');
+        $jq("#accordion").accordion({
+            heightStyle: "content"
+        });
 
     });
 
