@@ -89,5 +89,10 @@ namespace CompanyDefender.Controllers
 
             return View();
         }
+
+        public PartialViewResult _AntivirusPopup()
+        {
+            return PartialView();
+        }
     }
 }

@@ -17,34 +17,13 @@
     <h3>Aktualizacja antywirusa</h3>
     <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
     <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
-    <button id="opener">Zobacz listę osób, które nie dokonały aktualizacji</button>
-
+    @Ajax.ActionLink("Zobacz listę osób, które nie dokonały aktualizacji", "_AntivirusPopup", "Home", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup" }, new { @id = "opener" })
 </div>
+
 
 <div id="dialog" title="Basic dialog">
-    <div id="accordion">
-        <h3>Section 1</h3>
-        <div>
-            <p>
-                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-            </p>
-        </div>
-        @foreach (var i in new int[] { 1, 2, 3, 4, 5})
-        {
-            <h3>Section @i</h3>
-            <div>
-                <p>
-                   lalalalal @i
-                </p>
-            </div>
-
-        }
-    </div>
+    
 </div>
-
 
 
 <script>
@@ -131,12 +110,12 @@
         });
     });
 
+    function openPopup() {
+        $jq("#dialog").dialog("open");
+    }
+
     $jq(document).ready(function () {
         $jq('h3').addClass('text-title-chart');
-        $jq("#accordion").accordion({
-            heightStyle: "content"
-        });
-
     });
 
 </script>
