@@ -14,107 +14,116 @@
 }
 
 <div class="charts">
-    <h3>Aktualizacja antywirusa</h3>
+    <h3 class="text-title-chart">Aktualizacja antywirusa</h3>
     <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
     <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
-    @Ajax.ActionLink("Zobacz listę osób, które nie dokonały aktualizacji", "_AntivirusPopup", "Home", new { startDate = ViewBag.StartDate, endDate = ViewBag.EndDate },new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup" }, new { @id = "opener" })
+    @Ajax.ActionLink("Zobacz listę osób, które nie dokonały aktualizacji", "_AntivirusPopup", "Home", new { startDate = ViewBag.StartDate, endDate = ViewBag.EndDate },new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dialog", InsertionMode = InsertionMode.Replace}, new { @id = "opener", style= "display: none;" })
 </div>
 
 
 <div id="dialog" title="Osoby, które nie dokonały aktualizacji">
-    <img src="~/Content/ajax-loader.gif">
+    <img src="~/Content/ajax-loader.gif" style= "display: none;">
 </div>
 
 <script>
     var $jq = jQuery.noConflict();
-    var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
-    var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
-    new Chart('chart-0', {
-        type: 'bar',
-        data: {
-            datasets: [{
-                data: dataValues,
-                backgroundColor: "#80bfff",
-                borderColor: "#005ce6",
-                label: 'Aktualizacja antywirusa'
-            }],
-            labels: labelValues,
-        },
-        options: {
-            plugins: {
-                filler: {
-                    propagate: true
-                }
-            }
-        }
-    });
-
-    var updated_quantity = @ViewBag.PieChartData.updated_quantity;
-    var not_updated_quantity = @ViewBag.PieChartData.not_updated_quantity;
-
-    new Chart('chart-1', {
-        type: 'pie',
-        data: {
-            datasets: [{
-                data: [updated_quantity, not_updated_quantity],
-                backgroundColor: ["#80bfff", "#003d99"],
-            }],
-            labels: ["Zaktualizowany", "Niezaktualizowany"],
-        },
-        options: {
-            plugins: {
-                filler: {
-                    propagate: true
-                }
-            }
-        }
-    });
-
-    var daysToAdd = 28;
-    $jq("#startDate").datepicker({
-        onSelect: function (selected) {
-            var date = new Date(selected);
-            date.setDate(date.getDate() + daysToAdd);
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            var dtFormatted = year + '-' + month + '-' + day;
-            $jq("#endDate").datepicker("option", { maxDate: dtFormatted, dateFormat: 'yy-mm-dd' });
-        },
-        dateFormat: 'yy-mm-dd'
-
-    });
-
-    $jq("#endDate").datepicker({
-        onSelect: function (selected) {
-            var date = new Date(selected);
-            date.setDate(date.getDate() - daysToAdd);
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            var dtFormatted = year + '-' + month + '-' + day;
-            $jq("#startDate").datepicker("option", { minDate: dtFormatted, dateFormat: 'yy-mm-dd' })
-        },
-        dateFormat: 'yy-mm-dd'
-    });
-
     $jq(function () {
+        var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
+        var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
+
+        new Chart('chart-0', {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: "#80bfff",
+                    borderColor: "#005ce6",
+                    label: 'Aktualizacja antywirusa'
+                }],
+                labels: labelValues,
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                }
+            }
+        });
+
+        var updated_quantity = @ViewBag.PieChartData.updated_quantity;
+        var not_updated_quantity = @ViewBag.PieChartData.not_updated_quantity;
+
+        new Chart('chart-1', {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [updated_quantity, not_updated_quantity],
+                    backgroundColor: ["#80bfff", "#003d99"],
+                }],
+                labels: ["Zaktualizowany", "Niezaktualizowany"],
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                }
+            }
+        });
+
+        var daysToAdd = 28;
+        $jq("#startDate").datepicker({
+            onSelect: function (selected) {
+                var date = new Date(selected);
+                date.setDate(date.getDate() + daysToAdd);
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                var dtFormatted = year + '-' + month + '-' + day;
+                $jq("#endDate").datepicker("option", { maxDate: dtFormatted, dateFormat: 'yy-mm-dd' });
+            },
+            dateFormat: 'yy-mm-dd'
+
+        });
+
+        $jq("#endDate").datepicker({
+            onSelect: function (selected) {
+                var date = new Date(selected);
+                date.setDate(date.getDate() - daysToAdd);
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                var dtFormatted = year + '-' + month + '-' + day;
+                $jq("#startDate").datepicker("option", { minDate: dtFormatted, dateFormat: 'yy-mm-dd' })
+            },
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $jq("#dialog img").css({
+            "display": "block"
+        })
+
+        $jq("#opener").css({
+            "display": "inline-block"
+        })
+
         $jq("#dialog").dialog({
             autoOpen: false,
             minHeight: 400,
             minWidth : 700
         });
+
         $jq("#opener").click(function () {
             $jq("#dialog").dialog("open");
+            $jq("#dialog img").css({
+                "position": "absolute",
+                "margin": "auto",
+                "top": "0",
+                "left": "0",
+                "right": "0",
+                "bottom": "0",
+                "display": "block"})
         });
     });
-
-    function openPopup() {
-        $jq("#dialog").dialog("open");
-    }
-
-    $jq(document).ready(function () {
-        $jq('h3').addClass('text-title-chart');
-    });
-
 </script>
