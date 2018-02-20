@@ -18,6 +18,23 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
+        public String GetPeopleWhoDoNotUpdateAntivirusAsync(string startDate, string endDate)
+        {
+            String response = null;
+            var httpResponse = client.GetAsync(ApplicationConstant.urlService
+                + ApplicationConstant.getPeopleWhoDoNotUpdateAntivirus
+                + startDate + "/" + endDate)
+                .Result;
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var responseContent = httpResponse.Content;
+                response = responseContent.ReadAsStringAsync().Result;
+            }
+
+            return response;
+        }
+
         public async Task<String> GetDateForAntivirusPieChartAsync(string startDate, string endDate)
         {
             String response = null;

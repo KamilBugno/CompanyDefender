@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Analiza logów urządzeń";
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script type="text/javascript" src="~/Scripts/Chart.bundle.js"></script>
 
 <h2>Analiza logów urządzeń</h2>
 
@@ -17,14 +17,13 @@
     <h3>Aktualizacja antywirusa</h3>
     <div class="col-lg-7"><canvas id="chart-0"></canvas></div>
     <div class="col-lg-5"><canvas id="chart-1"></canvas></div>
-    @Ajax.ActionLink("Zobacz listę osób, które nie dokonały aktualizacji", "_AntivirusPopup", "Home", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup" }, new { @id = "opener" })
+    @Ajax.ActionLink("Zobacz listę osób, które nie dokonały aktualizacji", "_AntivirusPopup", "Home", new { startDate = ViewBag.StartDate, endDate = ViewBag.EndDate },new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup" }, new { @id = "opener" })
 </div>
 
 
-<div id="dialog" title="Basic dialog">
-    
+<div id="dialog" title="Osoby, które nie dokonały aktualizacji">
+    <img src="~/Content/ajax-loader.gif">
 </div>
-
 
 <script>
     var $jq = jQuery.noConflict();

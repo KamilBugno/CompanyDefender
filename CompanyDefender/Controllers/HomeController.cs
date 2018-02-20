@@ -75,6 +75,9 @@ namespace CompanyDefender.Controllers
             if (endDate == null)
                 endDate = new DateTime(2018, 1, 21).ToString("yyyy-MM-dd");
 
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
             var jsonResponseLineChart = restfulClient.GetDateForAntivirusLineChartAsync(startDate, endDate).Result;
             var antivirusLineChartData = JsonConvert.DeserializeObject<List<AntivirusUpdateLineChartData>>(jsonResponseLineChart);
             var deviceLogsLineChartVMCreator = new DeviceLogsLineGraphVMCreator(antivirusLineChartData,
@@ -90,8 +93,11 @@ namespace CompanyDefender.Controllers
             return View();
         }
 
-        public PartialViewResult _AntivirusPopup()
+        public PartialViewResult _AntivirusPopup(string startDate, string endDate)
         {
+            var jsonResponse = restfulClient.GetPeopleWhoDoNotUpdateAntivirusAsync(startDate, endDate);
+            var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
+            ViewBag.Employee = employee;
             return PartialView();
         }
     }
