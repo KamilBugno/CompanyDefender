@@ -47,7 +47,7 @@ namespace CompanyDefender.Controllers
 
         public ActionResult SearchByAttachment(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.SearchMailsByAttachmentAsync(personMailFullViewModelFromForm.Query).Result;
+            var jsonResponse = restfulClient.SearchMailsByAttachment(personMailFullViewModelFromForm.Query);
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
@@ -95,7 +95,7 @@ namespace CompanyDefender.Controllers
 
         public PartialViewResult _AntivirusPopup(string startDate, string endDate)
         {
-            var jsonResponse = restfulClient.GetPeopleWhoDoNotUpdateAntivirusAsync(startDate, endDate);
+            var jsonResponse = restfulClient.GetPeopleWhoDoNotUpdateAntivirus(startDate, endDate);
             var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
             ViewBag.Employee = employee;
             return PartialView();

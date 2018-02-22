@@ -18,7 +18,7 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
-        public String GetPeopleWhoDoNotUpdateAntivirusAsync(string startDate, string endDate)
+        public String GetPeopleWhoDoNotUpdateAntivirus(string startDate, string endDate)
         {
             String response = null;
             var httpResponse = client.GetAsync(ApplicationConstant.urlService
@@ -89,18 +89,47 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        public async Task<String> SearchMailsByAttachmentAsync(string query)
+        public string SearchMailsByAttachment(string query)
         {
-            if (query == null)
-                return await SearchMailsByBodyAsync(String.Empty);
+            //if (query == null)
+            //    return await SearchMailsByBodyAsync(String.Empty);
+            //String response = null;
+            //var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByAttachmentAction + query)
+            //    .ConfigureAwait(false);
+
+            //if (httpResponse.IsSuccessStatusCode)
+            //    response = await httpResponse.Content.ReadAsStringAsync();
+
+            //return response;
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByAttachmentAction, query);
+        }
+
+        private string GetAction(string urlService, string urlAction, params string[] args)
+        {
             String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByAttachmentAction + query)
-                .ConfigureAwait(false);
+            var fullUrl = createUrl(urlService, urlAction, args);
+
+            var httpResponse = client.GetAsync(fullUrl).Result;
 
             if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsStringAsync();
+            {
+                var responseContent = httpResponse.Content;
+                response = responseContent.ReadAsStringAsync().Result;
+            }
 
             return response;
+        }
+
+        private string createUrl(string urlService, string urlAction, params string[] args)
+        {
+            var fullUrl = urlService + urlAction;
+
+            foreach (string arg in args)
+            {
+                fullUrl += "/" + arg;
+            }
+
+            return fullUrl;
         }
 
         public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
