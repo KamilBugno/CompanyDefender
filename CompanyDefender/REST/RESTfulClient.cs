@@ -20,47 +20,20 @@ namespace CompanyDefender.REST
 
         public String GetPeopleWhoDoNotUpdateAntivirus(string startDate, string endDate)
         {
-            String response = null;
-            var httpResponse = client.GetAsync(ApplicationConstant.urlService
-                + ApplicationConstant.getPeopleWhoDoNotUpdateAntivirus
-                + startDate + "/" + endDate)
-                .Result;
-
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                var responseContent = httpResponse.Content;
-                response = responseContent.ReadAsStringAsync().Result;
-            }
-
-            return response;
+            return GetAction(ApplicationConstant.urlService,
+               ApplicationConstant.getPeopleWhoDoNotUpdateAntivirus, startDate, endDate);
         }
 
-        public async Task<String> GetDateForAntivirusPieChartAsync(string startDate, string endDate)
+        public string GetDateForAntivirusPieChart(string startDate, string endDate)
         {
-            String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService
-                + ApplicationConstant.getAntivirusDateForPieChart
-                + startDate + "/" + endDate)
-                .ConfigureAwait(false);
-
-            if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsStringAsync();
-
-            return response;
+            return GetAction(ApplicationConstant.urlService,
+               ApplicationConstant.getAntivirusDateForPieChart, startDate, endDate);
         }
 
-        public async Task<String> GetDateForAntivirusLineChartAsync(string startDate, string endDate)
+        public string GetDateForAntivirusLineChart(string startDate, string endDate)
         {
-            String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService 
-                + ApplicationConstant.getAntivirusDateForLineChart
-                + startDate + "/" + endDate)
-                .ConfigureAwait(false);
-
-            if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsStringAsync();
-
-            return response;
+           return GetAction(ApplicationConstant.urlService, 
+                ApplicationConstant.getAntivirusDateForLineChart, startDate, endDate);
         }
 
         public string GetAllMails()
@@ -76,6 +49,19 @@ namespace CompanyDefender.REST
         public string SearchMailsByAttachment(string query)
         {
             return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByAttachmentAction, query);
+        }
+
+        public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
+        {
+            var fullUrl = createUrl(ApplicationConstant.urlService, 
+                ApplicationConstant.downloadFileAction, foxxFileName);
+            var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
+            httpResponse.EnsureSuccessStatusCode();
+
+            byte[] response = null;
+            if (httpResponse.IsSuccessStatusCode)
+                response = await httpResponse.Content.ReadAsByteArrayAsync();
+            return response;
         }
 
         private string GetAction(string urlService, string urlAction, params string[] args)
@@ -104,18 +90,6 @@ namespace CompanyDefender.REST
             }
 
             return fullUrl;
-        }
-
-        public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
-        {
-            var fullUrl = ApplicationConstant.urlService + ApplicationConstant.downloadFileAction + foxxFileName;
-            var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
-            httpResponse.EnsureSuccessStatusCode();
-
-            byte[] response = null;
-            if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsByteArrayAsync();
-            return response;
         }
     }
 }

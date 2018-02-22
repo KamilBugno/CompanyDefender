@@ -78,14 +78,14 @@ namespace CompanyDefender.Controllers
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
 
-            var jsonResponseLineChart = restfulClient.GetDateForAntivirusLineChartAsync(startDate, endDate).Result;
+            var jsonResponseLineChart = restfulClient.GetDateForAntivirusLineChart(startDate, endDate);
             var antivirusLineChartData = JsonConvert.DeserializeObject<List<AntivirusUpdateLineChartData>>(jsonResponseLineChart);
             var deviceLogsLineChartVMCreator = new DeviceLogsLineGraphVMCreator(antivirusLineChartData,
                startDate, endDate);
             var antivirusUpdateLineChartViewModel = deviceLogsLineChartVMCreator.CreateFromAntivirusUpdateData();
             ViewBag.LineChartData = antivirusUpdateLineChartViewModel;
 
-            var jsonResponsePieChart = restfulClient.GetDateForAntivirusPieChartAsync(startDate, endDate).Result;
+            var jsonResponsePieChart = restfulClient.GetDateForAntivirusPieChart(startDate, endDate);
             var antivirusPieChartData = JsonConvert.DeserializeObject<List<AntivirusUpdatePieChart>>(jsonResponsePieChart);
             ViewBag.PieChartData = antivirusPieChartData[0];
 
