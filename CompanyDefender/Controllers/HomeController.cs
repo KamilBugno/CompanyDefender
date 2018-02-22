@@ -38,7 +38,7 @@ namespace CompanyDefender.Controllers
 
         public ActionResult SearchByBody(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.SearchMailsByBodyAsync(personMailFullViewModelFromForm.Query).Result;
+            var jsonResponse = restfulClient.SearchMailsByBody(personMailFullViewModelFromForm.Query);
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
