@@ -1,0 +1,24 @@
+﻿@model CompanyDefender.Models.DeviceLogsAnalysis.Employee
+
+<h3>@Model.name</h3>
+<div>
+    <p>
+        <b>Dział: </b> @Model.department<br />
+        <b>Stanowisko(a): </b>
+        @for (int i = Model.roles.Length - 1; i >= 0; i--)
+        {
+            if (i != 0)
+            {
+                @Model.roles[i]<a>, </a>
+            }
+            else
+            {
+                @Model.roles[i]
+            }
+
+        }
+        <br />
+        <b>E-mail: </b>@Model.mail
+    </p>
+</div>
+

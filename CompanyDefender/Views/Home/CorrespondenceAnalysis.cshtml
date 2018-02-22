@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Mails viewer</title>
-    <script type="text/javascript" src="~/Scripts/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="~/Scripts/vis.js"></script>
     
 </head>
@@ -44,8 +43,12 @@
             {
                 <tr>
                     <td>@mailsRow.Id</td>
-                    <td>@mailsRow.FullNameFrom</td>
-                    <td>@mailsRow.FullNameTo</td>
+                    <td>
+                        @Ajax.ActionLink(mailsRow.FullNameFrom, "_PersonDetailsPopup", "Home", new { key = mailsRow.KeyFrom }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "person-dialog", InsertionMode = InsertionMode.Replace }, new { @class = "link" } )
+                    </td>
+                    <td>
+                        @Ajax.ActionLink(mailsRow.FullNameTo, "_PersonDetailsPopup", "Home", new { key = mailsRow.KeyTo }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "person-dialog", InsertionMode = InsertionMode.Replace }, new { @class = "link" })
+                    </td>
                     <td>@mailsRow.Topic</td>
                     <td>@mailsRow.Body</td>
                     <td>
@@ -66,10 +69,13 @@
         </tbody>
     </table>  
 
+    <div id="person-dialog" title="Szczegóły wybranej osoby">
+    </div>
+
     <a href="#">Na górę strony</a>
 
     <script type="text/javascript">
-
+        var $jq = jQuery.noConflict();
         var persons = @JavaScriptConvert.SerializeObjectToJson(Model.PersonsGraph);
         var nodes = new vis.DataSet(persons);
 
@@ -105,18 +111,27 @@
             //console.log('selectEdge Event:', params);
         });
 
-        $(document).ready(function () {
-            $('#mails tr:odd').addClass('zebra');
+        $jq(document).ready(function () {
+            $jq('#mails tr:odd').addClass('zebra');
             
-            $('#mails tbody tr').hover(function () {
-                $(this).addClass('zebraHover');
+            $jq('#mails tbody tr').hover(function () {
+                $jq(this).addClass('zebraHover');
             }, function () {
-                $(this).removeClass('zebraHover');
+                $jq(this).removeClass('zebraHover');
             });
 
-            $('a[href="#"]').click(function () {
-                $('html').animate({ scrollTop: 0 }, 'slow');
+            $jq('a[href="#"]').click(function () {
+                $jq('html').animate({ scrollTop: 0 }, 'slow');
                 return false;
+            });
+            $jq("#person-dialog").dialog({
+                autoOpen: false,
+                minHeight: 250,
+                minWidth: 450
+            });
+            $jq(".link").click(function () {
+                $('#person-dialog').empty();
+                $jq("#person-dialog").dialog("open");
             });
 
         });

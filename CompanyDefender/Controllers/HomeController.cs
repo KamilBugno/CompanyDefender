@@ -57,7 +57,6 @@ namespace CompanyDefender.Controllers
         public ActionResult InternalSystemsAnalysis()
         {
             ViewBag.Message = "InternalSystemsAnalysis";
-
             return View();
         }
 
@@ -89,7 +88,6 @@ namespace CompanyDefender.Controllers
             var antivirusPieChartData = JsonConvert.DeserializeObject<List<AntivirusUpdatePieChart>>(jsonResponsePieChart);
             ViewBag.PieChartData = antivirusPieChartData[0];
 
-
             return View();
         }
 
@@ -99,6 +97,13 @@ namespace CompanyDefender.Controllers
             var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
             ViewBag.Employee = employee;
             return PartialView();
+        }
+
+        public PartialViewResult _PersonDetailsPopup(string key)
+        {
+            var jsonResponse = restfulClient.GetPersonDetails(key);
+            var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
+            return PartialView("_PersonDetailsPopup", employee[0]);
         }
     }
 }

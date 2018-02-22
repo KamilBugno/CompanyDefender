@@ -12,10 +12,12 @@ namespace CompanyDefender.Models
         public string FullNameTo;
         public string Topic;
         public string Body;
+        public string KeyFrom;
+        public string KeyTo;
         public bool HasAttachment;
 
         public MailTableViewModel(string id, string fullNameFrom, string fullNameTo, 
-            string topic, string body, bool hasAttachment)
+            string topic, string body, bool hasAttachment, string keyFrom, string keyTo)
         {
             Id = id;
             FullNameFrom = fullNameFrom;
@@ -23,6 +25,8 @@ namespace CompanyDefender.Models
             Topic = topic;
             Body = body;
             HasAttachment = hasAttachment;
+            KeyFrom = keyFrom;
+            KeyTo = keyTo;
         }
 
 

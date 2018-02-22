@@ -35,8 +35,8 @@ namespace CompanyDefender.Tests
                     to = "HRSystem/2",
                     full_name_from = "Jan Kowalski",
                     full_name_to = "Alicja Kowalska",
-                    from_mail_address = "jan.kowalski@company.com",
-                    to_mail_address = "alicja.kowalska@company.com",
+                    from_key = "1",
+                    to_key = "2",
                     topic = "What about dinner?",
                     body = "Do you want to eat dinner with me at 12?",
                     has_attachment = "1"
@@ -48,8 +48,8 @@ namespace CompanyDefender.Tests
                     to = "HRSystem/3",
                     full_name_from = "Jan Kowalski",
                     full_name_to = "Kamil Nowak",
-                    from_mail_address = "jan.kowalski@company.com",
-                    to_mail_address = "kamil.nowak@company.com",
+                    from_key = "1",
+                    to_key = "3",
                     topic = "Spotkanie",
                     body = "Zapraszam na spotkanie zespolu o 14.00 w sali 391",
                     has_attachment = "0"

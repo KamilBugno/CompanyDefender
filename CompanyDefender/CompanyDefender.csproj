@@ -236,6 +236,7 @@
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Home\CorrespondenceAnalysis.cshtml" />
     <Content Include="Views\Home\_AntivirusPopup.cshtml" />
+    <Content Include="Views\Home\_PersonDetailsPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

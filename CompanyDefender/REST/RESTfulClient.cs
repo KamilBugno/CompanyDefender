@@ -18,6 +18,12 @@ namespace CompanyDefender.REST
             client = new HttpClient();
         }
 
+        public String GetPersonDetails(string key)
+        {
+            return GetAction(ApplicationConstant.urlService,
+               ApplicationConstant.getPersonDetails, key);
+        }
+
         public String GetPeopleWhoDoNotUpdateAntivirus(string startDate, string endDate)
         {
             return GetAction(ApplicationConstant.urlService,
@@ -53,7 +59,7 @@ namespace CompanyDefender.REST
 
         public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
         {
-            var fullUrl = createUrl(ApplicationConstant.urlService, 
+            var fullUrl = CreateUrl(ApplicationConstant.urlService, 
                 ApplicationConstant.downloadFileAction, foxxFileName);
             var httpResponse = await client.GetAsync(fullUrl).ConfigureAwait(false);
             httpResponse.EnsureSuccessStatusCode();
@@ -67,7 +73,7 @@ namespace CompanyDefender.REST
         private string GetAction(string urlService, string urlAction, params string[] args)
         {
             String response = null;
-            var fullUrl = createUrl(urlService, urlAction, args);
+            var fullUrl = CreateUrl(urlService, urlAction, args);
 
             var httpResponse = client.GetAsync(fullUrl).Result;
 
@@ -80,7 +86,7 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        private string createUrl(string urlService, string urlAction, params string[] args)
+        private string CreateUrl(string urlService, string urlAction, params string[] args)
         {
             var fullUrl = urlService + urlAction;
 

@@ -16,5 +16,6 @@ namespace CompanyDefender.Constant
         public static string getAntivirusDateForLineChart = "antivirus-line-chart/";
         public static string getAntivirusDateForPieChart = "antivirus-pie-chart/";
         public static string getPeopleWhoDoNotUpdateAntivirus = "antivirus-people-list/";
+        public static string getPersonDetails = "correspondence-table-people/";
     }
 }
