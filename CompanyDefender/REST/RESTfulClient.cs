@@ -63,32 +63,14 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        public async Task<String> GetAllMailsAsync()
+        public string GetAllMails()
         {
-            String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.getAllMails)
-                .ConfigureAwait(false);
-
-            if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsStringAsync();
-
-            return response;
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.getAllMails);
         }
 
         public string SearchMailsByBody(string query)
         {
-            //if (query == null)
-            //    query = String.Empty;
-            //String response = null;
-            //var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByBodyAction + query)
-            //    .ConfigureAwait(false);
-
-            //if (httpResponse.IsSuccessStatusCode)
-            //    response = await httpResponse.Content.ReadAsStringAsync();
-
-            //return response;
             return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByBodyAction, query);
-
         }
 
         public string SearchMailsByAttachment(string query)

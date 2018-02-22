@@ -29,7 +29,7 @@ namespace CompanyDefender.Controllers
 
         public ActionResult AllMails()
         {
-            var jsonResponse = restfulClient.GetAllMailsAsync().Result;
+            var jsonResponse = restfulClient.GetAllMails();
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
