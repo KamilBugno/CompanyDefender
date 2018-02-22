@@ -75,32 +75,24 @@ namespace CompanyDefender.REST
             return response;
         }
 
-        public async Task<String> SearchMailsByBodyAsync(string query)
-        {
-            if (query == null)
-                query = String.Empty;
-            String response = null;
-            var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByBodyAction + query)
-                .ConfigureAwait(false);
-
-            if (httpResponse.IsSuccessStatusCode)
-                response = await httpResponse.Content.ReadAsStringAsync();
-
-            return response;
-        }
-
-        public string SearchMailsByAttachment(string query)
+        public string SearchMailsByBody(string query)
         {
             //if (query == null)
-            //    return await SearchMailsByBodyAsync(String.Empty);
+            //    query = String.Empty;
             //String response = null;
-            //var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByAttachmentAction + query)
+            //var httpResponse = await client.GetAsync(ApplicationConstant.urlService + ApplicationConstant.searchMailsByBodyAction + query)
             //    .ConfigureAwait(false);
 
             //if (httpResponse.IsSuccessStatusCode)
             //    response = await httpResponse.Content.ReadAsStringAsync();
 
             //return response;
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByBodyAction, query);
+
+        }
+
+        public string SearchMailsByAttachment(string query)
+        {
             return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByAttachmentAction, query);
         }
 
