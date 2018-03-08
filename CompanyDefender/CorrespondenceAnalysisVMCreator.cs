@@ -21,8 +21,10 @@ namespace CompanyDefender
 
                 mailsGraph.Add(new MailGraphViewModel(GetMailId(mailRecord.mail_key), idFrom, idTo));
 
+                var date = DateTime.ParseExact(mailRecord.date, "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+
                 mailsTable.Add(new MailTableViewModel(GetMailId(mailRecord.mail_key), mailRecord.full_name_from, mailRecord.full_name_to,
-                    mailRecord.topic, mailRecord.body, mailRecord.has_attachment == "1" ? true : false, mailRecord.from_key, mailRecord.to_key));
+                    mailRecord.topic, mailRecord.body, mailRecord.has_attachment == "1" ? true : false, mailRecord.from_key, mailRecord.to_key, date));
 
                 if (!personsGraph.Exists(person => person.Id == idFrom))
                 {

@@ -15,9 +15,11 @@ namespace CompanyDefender.Models
         public string KeyFrom;
         public string KeyTo;
         public bool HasAttachment;
+        public DateTime Date;
 
         public MailTableViewModel(string id, string fullNameFrom, string fullNameTo, 
-            string topic, string body, bool hasAttachment, string keyFrom, string keyTo)
+            string topic, string body, bool hasAttachment, string keyFrom, string keyTo,
+            DateTime date)
         {
             Id = id;
             FullNameFrom = fullNameFrom;
@@ -27,6 +29,7 @@ namespace CompanyDefender.Models
             HasAttachment = hasAttachment;
             KeyFrom = keyFrom;
             KeyTo = keyTo;
+            Date = date;
         }
 
 

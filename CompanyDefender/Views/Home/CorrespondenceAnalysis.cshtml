@@ -33,6 +33,7 @@
                 <th id="sort-id">Id</th>
                 <th>Nadawca</th>
                 <th>Odbiorca</th>
+                <th>Data</th>
                 <th>Temat wiadomości</th>
                 <th>Treść wiadomości</th>
                 <th>Załącznik</th>
@@ -49,6 +50,7 @@
                     <td>
                         @Ajax.ActionLink(mailsRow.FullNameTo, "_PersonDetailsPopup", "Home", new { key = mailsRow.KeyTo }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "person-dialog", InsertionMode = InsertionMode.Replace }, new { @class = "link" })
                     </td>
+                    <td>@mailsRow.Date</td>
                     <td>@mailsRow.Topic</td>
                     <td>@mailsRow.Body</td>
                     <td>

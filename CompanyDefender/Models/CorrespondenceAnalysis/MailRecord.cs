@@ -17,5 +17,6 @@ namespace CompanyDefender.Models
         public string topic { get; set; }
         public string body { get; set; }
         public string has_attachment { get; set; }
+        public string date { get; set; }
     }
 }
