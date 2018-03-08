@@ -27,18 +27,30 @@ namespace CompanyDefender.Controllers
             return View();
         }
 
-        public ActionResult AllMails()
+        public ActionResult AllMails(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.GetAllMails();
+            if(personMailFullViewModelFromForm.StartDate == null)
+                personMailFullViewModelFromForm.StartDate = new DateTime(2017, 12, 22).ToString("yyyy-MM-dd");
+            if (personMailFullViewModelFromForm.EndDate == null)
+                personMailFullViewModelFromForm.EndDate = new DateTime(2018, 01, 30).ToString("yyyy-MM-dd");
+
+            var jsonResponse = restfulClient.GetAllMails(personMailFullViewModelFromForm.StartDate,
+                personMailFullViewModelFromForm.EndDate);
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
+
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
+            personMailViewModel.StartDate = personMailFullViewModelFromForm.StartDate;
+            personMailViewModel.EndDate = personMailFullViewModelFromForm.EndDate;
 
             return View("CorrespondenceAnalysis", personMailViewModel);
         }
 
         public ActionResult SearchByBody(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.SearchMailsByBody(personMailFullViewModelFromForm.Query);
+            var query = personMailFullViewModelFromForm.Query;
+            var startDate = personMailFullViewModelFromForm.StartDate;
+            var endDate = personMailFullViewModelFromForm.EndDate;
+            var jsonResponse = restfulClient.SearchMailsByBody(query, startDate, endDate);
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
@@ -47,7 +59,10 @@ namespace CompanyDefender.Controllers
 
         public ActionResult SearchByAttachment(PersonMailFullViewModel personMailFullViewModelFromForm)
         {
-            var jsonResponse = restfulClient.SearchMailsByAttachment(personMailFullViewModelFromForm.Query);
+            var query = personMailFullViewModelFromForm.Query;
+            var startDate = personMailFullViewModelFromForm.StartDate;
+            var endDate = personMailFullViewModelFromForm.EndDate;
+            var jsonResponse = restfulClient.SearchMailsByAttachment(query, startDate, endDate);
             List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 

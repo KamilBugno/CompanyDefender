@@ -12,6 +12,8 @@ namespace CompanyDefender.Models
         public List<PersonGraphViewModel> PersonsGraph { get; set; }
         public List<MailTableViewModel> MailsTable { get; set; }
         public string Query { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
 
         public PersonMailFullViewModel()
         {

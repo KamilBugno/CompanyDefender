@@ -18,6 +18,8 @@
    
     @using (Html.BeginForm())
     {
+       @Html.TextBoxFor(model => model.StartDate, new { @class = "TextBox"})
+       @Html.TextBoxFor(model => model.EndDate, new { @class = "TextBox"})
        @Html.TextBoxFor(model => model.Query, new { @class = "TextBox" })
        <input type="submit" id="submitBody" value="Wyszukaj w treści maili" formaction="SearchByBody" formmethod="post" />
        <input type="submit" id="submitAttachment" value="Wyszukaj w załączniku maili" formaction="SearchByAttachment" formmethod="post" />
@@ -135,6 +137,9 @@
                 $('#person-dialog').empty();
                 $jq("#person-dialog").dialog("open");
             });
+
+            $jq("#StartDate").datepicker({ dateFormat: 'yy-mm-dd' });
+            $jq("#EndDate").datepicker({ dateFormat: 'yy-mm-dd' });
 
         });
     </script>

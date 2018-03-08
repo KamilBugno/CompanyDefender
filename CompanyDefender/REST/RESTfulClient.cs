@@ -42,19 +42,19 @@ namespace CompanyDefender.REST
                 ApplicationConstant.getAntivirusDateForLineChart, startDate, endDate);
         }
 
-        public string GetAllMails()
+        public string GetAllMails(string startDate, string endDate)
         {
-            return GetAction(ApplicationConstant.urlService, ApplicationConstant.getAllMails);
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.getAllMails, startDate, endDate);
         }
 
-        public string SearchMailsByBody(string query)
+        public string SearchMailsByBody(string query, string startDate, string endDate)
         {
-            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByBodyAction, query);
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByBodyAction, query, startDate, endDate);
         }
 
-        public string SearchMailsByAttachment(string query)
+        public string SearchMailsByAttachment(string query, string startDate, string endDate)
         {
-            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByAttachmentAction, query);
+            return GetAction(ApplicationConstant.urlService, ApplicationConstant.searchMailsByAttachmentAction, query, startDate, endDate);
         }
 
         public async Task<byte[]> DownloadFileFromFoxxAsync(string foxxFileName)
