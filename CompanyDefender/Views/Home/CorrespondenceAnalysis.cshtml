@@ -18,12 +18,14 @@
    
     @using (Html.BeginForm())
     {
-       @Html.TextBoxFor(model => model.StartDate, new { @class = "TextBox"})
-       @Html.TextBoxFor(model => model.EndDate, new { @class = "TextBox"})
-       @Html.TextBoxFor(model => model.Query, new { @class = "TextBox" })
+       <section>
+           @Html.TextBoxFor(model => model.StartDate, new { @class = "TextBox" })
+           @Html.TextBoxFor(model => model.EndDate, new { @class = "TextBox" })
+           <input type="submit" id="submitReset" value="Wyszukaj wszystkie" formaction="AllMails" formmethod="post" />
+       </section>
+       @Html.TextBoxFor(model => model.Query, new { @class = "TextBox"})
        <input type="submit" id="submitBody" value="Wyszukaj w treści maili" formaction="SearchByBody" formmethod="post" />
        <input type="submit" id="submitAttachment" value="Wyszukaj w załączniku maili" formaction="SearchByAttachment" formmethod="post" />
-       <input type="submit" id="submitReset" value="Wyczyść wyszukiwanie" formaction="AllMails" formmethod="post" />
     }
 
 
