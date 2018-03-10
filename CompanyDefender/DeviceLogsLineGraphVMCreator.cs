@@ -20,9 +20,9 @@ namespace CompanyDefender
             this.antivirusData = antivirusData;
         }
 
-        public AntivirusUpdateLineChartViewModel CreateFromAntivirusUpdateData()
+        public LineChartViewModel CreateFromAntivirusUpdateData()
         {
-            return new AntivirusUpdateLineChartViewModel(CreateLabels(), CreateData());
+            return new LineChartViewModel(CreateLabels(), CreateData());
         }
 
         private string[] CreateLabels()

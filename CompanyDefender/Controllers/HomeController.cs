@@ -1,5 +1,6 @@
 ﻿using CompanyDefender.Models;
 using CompanyDefender.Models.DeviceLogsAnalysis;
+using CompanyDefender.Models.InternalSystemsLogsAnalysis;
 using CompanyDefender.REST;
 using Newtonsoft.Json;
 using System;
@@ -69,9 +70,22 @@ namespace CompanyDefender.Controllers
             return View("CorrespondenceAnalysis", personMailViewModel);
         }
 
-        public ActionResult InternalSystemsAnalysis()
+        public ActionResult InternalSystemsAnalysis(string startDate = null, string endDate = null)
         {
-            ViewBag.Message = "InternalSystemsAnalysis";
+            if (startDate == null)
+                startDate = new DateTime(2017, 12, 22).ToString("yyyy-MM-dd");
+            if (endDate == null)
+                endDate = new DateTime(2018, 3, 30).ToString("yyyy-MM-dd");
+
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
+            var jsonResponseLineChart = restfulClient.GetDateForFailedLoginLineChart(startDate, endDate);
+            var failedLoginLineChartData = JsonConvert.DeserializeObject<List<EmployeesAccountFailedLogins>>(jsonResponseLineChart);
+            var failedLoginVMCreator = new FailedLoginsVMCreator(failedLoginLineChartData);
+            var failedLoginLineChartViewModel = failedLoginVMCreator.CreateFromEmployeesAccountFailedLogins();
+            ViewBag.LineChartData = failedLoginLineChartViewModel;
+
             return View();
         }
 

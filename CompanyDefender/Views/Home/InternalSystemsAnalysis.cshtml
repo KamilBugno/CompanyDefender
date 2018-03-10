@@ -1,8 +1,60 @@
-﻿@model string
+﻿@using CompanyDefender.Converters;
 @{
     ViewBag.Title = "Analiza logów systemów wewnętrznych";
 }
+<script type="text/javascript" src="~/Scripts/Chart.bundle.js"></script>
+<h2>Analiza logów systemów wewnętrznych</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.TextBox("StartDate", "2017-12-22", new { @class = "date-picker TextBox" })
+    @Html.TextBox("EndDate", "2018-01-21", new { @class = "date-picker TextBox" })
+    <input type="submit" id="submitDate" value="Zastosuj daty" formaction="InternalSystemsAnalysis" formmethod="post" />
+}
+
+<div class="charts">
+    <h3 class="text-title-chart">Nieudane logowania</h3>
+    <div class="col-lg-7"><canvas id="login-chart-0"></canvas></div>
+</div>
+
+<script>
+    var $jq = jQuery.noConflict();
+    $jq(function () {
+        var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
+        var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
+
+        new Chart('login-chart-0', {
+            type: 'horizontalBar',
+            data: {
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: "#80bfff",
+                    borderColor: "#005ce6",
+                    label: 'Liczba nieudanych logowań na konto'
+                }],
+                labels: labelValues,
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        $jq("#StartDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $jq("#EndDate").datepicker({ dateFormat: 'yy-mm-dd' });
+       
+    });
+</script>
 
 
     
