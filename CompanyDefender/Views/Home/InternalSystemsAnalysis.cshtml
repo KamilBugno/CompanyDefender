@@ -8,31 +8,62 @@
 @using (Html.BeginForm())
 {
     @Html.TextBox("StartDate", "2017-12-22", new { @class = "date-picker TextBox" })
-    @Html.TextBox("EndDate", "2018-01-21", new { @class = "date-picker TextBox" })
+    @Html.TextBox("EndDate", "2018-03-21", new { @class = "date-picker TextBox" })
     <input type="submit" id="submitDate" value="Zastosuj daty" formaction="InternalSystemsAnalysis" formmethod="post" />
 }
 
 <div class="charts">
     <h3 class="text-title-chart">Nieudane logowania</h3>
-    <div class="col-lg-7"><canvas id="login-chart-0"></canvas></div>
+    <div class="col-lg-6"><canvas id="login-chart-0"></canvas></div>
+    <div class="col-lg-6"><canvas id="login-chart-1"></canvas></div>
 </div>
 
 <script>
     var $jq = jQuery.noConflict();
     $jq(function () {
-        var dataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Data)
-        var labelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.LineChartData.Labels)
+        var nameDataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.NameLineChartData.Data)
+        var nameLabelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.NameLineChartData.Labels)
 
         new Chart('login-chart-0', {
             type: 'horizontalBar',
             data: {
                 datasets: [{
-                    data: dataValues,
+                    data: nameDataValues,
                     backgroundColor: "#80bfff",
                     borderColor: "#005ce6",
                     label: 'Liczba nieudanych logowań na konto'
                 }],
-                labels: labelValues,
+                labels: nameLabelValues,
+            },
+            options: {
+                plugins: {
+                    filler: {
+                        propagate: true
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ipDataValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.IpLineChartData.Data)
+        var ipLabelValues = @JavaScriptConvert.SerializeObjectToJson(ViewBag.IpLineChartData.Labels)
+
+        new Chart('login-chart-1', {
+            type: 'horizontalBar',
+            data: {
+                datasets: [{
+                    data: ipDataValues,
+                    backgroundColor: "#003d99",
+                    borderColor: "#005ce6",
+                    label: 'Liczba nieudanych logowań na konto'
+                }],
+                labels: ipLabelValues,
             },
             options: {
                 plugins: {
@@ -52,7 +83,7 @@
 
         $jq("#StartDate").datepicker({ dateFormat: 'yy-mm-dd' });
         $jq("#EndDate").datepicker({ dateFormat: 'yy-mm-dd' });
-       
+
     });
 </script>
 

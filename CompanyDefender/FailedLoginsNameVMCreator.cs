@@ -7,13 +7,13 @@ using System.Web;
 
 namespace CompanyDefender
 {
-    public class FailedLoginsVMCreator
+    public class FailedLoginsNameVMCreator
     {
-        private List<EmployeesAccountFailedLogins> failedLogins;
+        private List<EmployeesAccountNameFailedLogins> failedLogins;
         private List<string> labels;
         private List<int> data;
 
-        public FailedLoginsVMCreator(List<EmployeesAccountFailedLogins> failedLogins)
+        public FailedLoginsNameVMCreator(List<EmployeesAccountNameFailedLogins> failedLogins)
         {
             this.failedLogins = failedLogins;
             labels = new List<string>();
@@ -28,7 +28,7 @@ namespace CompanyDefender
 
         private void TransformDataForLineChart()
         {
-            foreach (EmployeesAccountFailedLogins fl in failedLogins)
+            foreach (EmployeesAccountNameFailedLogins fl in failedLogins)
             {
                 labels.Add(fl.name);
                 data.Add(fl.number_of_failed_login);

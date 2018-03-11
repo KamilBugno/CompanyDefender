@@ -151,7 +151,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Converters\JavaScriptConvert.cs" />
     <Compile Include="DeviceLogsLineGraphVMCreator.cs" />
-    <Compile Include="FailedLoginsVMCreator.cs" />
+    <Compile Include="FailedLoginsIpVMCreator.cs" />
+    <Compile Include="FailedLoginsNameVMCreator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,6 +163,7 @@
     <Compile Include="Models\CorrespondenceAnalysis\MailTableViewModel.cs" />
     <Compile Include="Models\DeviceLogsAnalysis\AntivirusUpdateLineChartData.cs" />
     <Compile Include="CorrespondenceAnalysisVMCreator.cs" />
+    <Compile Include="Models\InternalSystemsLogsAnalysis\EmployeesAccountIpFailedLogins.cs" />
     <Compile Include="Models\LineChartViewModel.cs" />
     <Compile Include="Models\DeviceLogsAnalysis\AntivirusUpdatePieChart.cs" />
     <Compile Include="Models\DeviceLogsAnalysis\Employee.cs" />

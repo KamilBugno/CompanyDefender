@@ -80,11 +80,17 @@ namespace CompanyDefender.Controllers
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
 
-            var jsonResponseLineChart = restfulClient.GetDateForFailedLoginLineChart(startDate, endDate);
-            var failedLoginLineChartData = JsonConvert.DeserializeObject<List<EmployeesAccountFailedLogins>>(jsonResponseLineChart);
-            var failedLoginVMCreator = new FailedLoginsVMCreator(failedLoginLineChartData);
-            var failedLoginLineChartViewModel = failedLoginVMCreator.CreateFromEmployeesAccountFailedLogins();
-            ViewBag.LineChartData = failedLoginLineChartViewModel;
+            var jsonResponseLineChart = restfulClient.GetNameForFailedLoginLineChart(startDate, endDate);
+            var nameFailedLoginLineChart = JsonConvert.DeserializeObject<List<EmployeesAccountNameFailedLogins>>(jsonResponseLineChart);
+            var nameFailedLoginVMCreator = new FailedLoginsNameVMCreator(nameFailedLoginLineChart);
+            var nameFailedLoginLineChartViewModel = nameFailedLoginVMCreator.CreateFromEmployeesAccountFailedLogins();
+            ViewBag.NameLineChartData = nameFailedLoginLineChartViewModel;
+
+            jsonResponseLineChart = restfulClient.GetIpForFailedLoginLineChart(startDate, endDate);
+            var ipFailedLoginLineChart = JsonConvert.DeserializeObject<List<EmployeesAccountIpFailedLogins>>(jsonResponseLineChart);
+            var ipFailedLoginVMCreator = new FailedLoginsIpVMCreator(ipFailedLoginLineChart);
+            var ipFailedLoginLineChartViewModel = ipFailedLoginVMCreator.CreateFromEmployeesAccountFailedLogins();
+            ViewBag.IpLineChartData = ipFailedLoginLineChartViewModel;
 
             return View();
         }

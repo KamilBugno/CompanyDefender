@@ -42,10 +42,16 @@ namespace CompanyDefender.REST
                 ApplicationConstant.getAntivirusDateForLineChart, startDate, endDate);
         }
 
-        public string GetDateForFailedLoginLineChart(string startDate, string endDate)
+        public string GetNameForFailedLoginLineChart(string startDate, string endDate)
         {
             return GetAction(ApplicationConstant.urlService,
-               ApplicationConstant.getDataForEmployeesAccountFailedLogin, startDate, endDate);
+               ApplicationConstant.getNameForEmployeesAccountFailedLogin, startDate, endDate);
+        }
+
+        public string GetIpForFailedLoginLineChart(string startDate, string endDate)
+        {
+            return GetAction(ApplicationConstant.urlService,
+               ApplicationConstant.getIpForEmployeesAccountFailedLogin, startDate, endDate);
         }
 
         public string GetAllMails(string startDate, string endDate)
