@@ -1,8 +1,9 @@
-﻿using CompanyDefender.Models;
+﻿using CompanyDefender.HTTP;
+using CompanyDefender.Models;
 using CompanyDefender.Models.DeviceLogsAnalysis;
 using CompanyDefender.Models.InternalSystemsLogsAnalysis;
-using CompanyDefender.REST;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -15,11 +16,13 @@ namespace CompanyDefender.Controllers
     public class HomeController : Controller
     {
         private RESTfulClient restfulClient;
+        private GraphQLClient graphQLClient;
         private CorrespondenceAnalysisVMCreator personMailGraphVMCreator;
 
         public HomeController()
         {
             restfulClient = new RESTfulClient();
+            graphQLClient = new GraphQLClient();
             personMailGraphVMCreator = new CorrespondenceAnalysisVMCreator();
         }
 
@@ -136,9 +139,26 @@ namespace CompanyDefender.Controllers
 
         public PartialViewResult _PersonDetailsPopup(string key)
         {
-            var jsonResponse = restfulClient.GetPersonDetails(key);
-            var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
-            return PartialView("_PersonDetailsPopup", employee[0]);
+            //var fullJson = @"{
+            //    ""data"": {
+            //      ""person"": {
+            //        ""name"": ""Alicja Kowalska"",
+            //        ""mail"": ""alicja.kowalska@company.com"",
+            //        ""department"": ""software development"",
+            //        ""devices_number"": ""1"",
+            //        ""roles"": "".NET Developer,Team leader""
+            //       }
+            //     }
+            //}";
+
+            var fullJson = graphQLClient.GetPerson(key);
+
+            JObject parsedJson = JObject.Parse(fullJson);
+            JObject personJson = (JObject)parsedJson["data"]["person"];
+            //var jsonResponse = restfulClient.GetPersonDetails(key);
+            //var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
+            var employee = JsonConvert.DeserializeObject<Employee>(personJson.ToString());
+            return PartialView("_PersonDetailsPopup", employee);
         }
     }
 }

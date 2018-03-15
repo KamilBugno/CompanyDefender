@@ -7,7 +7,8 @@ namespace CompanyDefender.Constant
 {
     public static class ApplicationConstant
     {
-        public static string urlService = "http://127.0.0.1:8529/_db/_system/foxx-service/";
+        public static string urlFoxxService = "http://127.0.0.1:8529/_db/_system/foxx-service/";
+        public static string urlGraphQLService = "http://127.0.0.1:8529/test3/?query=";
         public static string uploadFileAction = "save-file/";
         public static string downloadFileAction = "download-file/";
         public static string searchMailsByBodyAction = "get-mails-by-body/";

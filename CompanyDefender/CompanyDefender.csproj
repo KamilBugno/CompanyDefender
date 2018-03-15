@@ -156,6 +156,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HTTP\Client.cs" />
+    <Compile Include="HTTP\GraphQLClient.cs" />
     <Compile Include="Models\CorrespondenceAnalysis\MailGraphViewModel.cs" />
     <Compile Include="Models\CorrespondenceAnalysis\MailRecord.cs" />
     <Compile Include="Models\CorrespondenceAnalysis\PersonGraphViewModel.cs" />
@@ -169,7 +171,7 @@
     <Compile Include="Models\DeviceLogsAnalysis\Employee.cs" />
     <Compile Include="Models\InternalSystemsLogsAnalysis\EmployeesAccountFailedLogins.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="REST\RESTfulClient.cs" />
+    <Compile Include="HTTP\RESTfulClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ajax-loader.gif" />
