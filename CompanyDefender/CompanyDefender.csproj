@@ -165,6 +165,8 @@
     <Compile Include="Models\CorrespondenceAnalysis\MailTableViewModel.cs" />
     <Compile Include="Models\DeviceLogsAnalysis\AntivirusUpdateLineChartData.cs" />
     <Compile Include="CorrespondenceAnalysisVMCreator.cs" />
+    <Compile Include="Models\DeviceLogsAnalysis\EmployeeKey.cs" />
+    <Compile Include="Models\DeviceLogsAnalysis\EmployeeWithDeviceNumber.cs" />
     <Compile Include="Models\InternalSystemsLogsAnalysis\EmployeesAccountIpFailedLogins.cs" />
     <Compile Include="Models\LineChartViewModel.cs" />
     <Compile Include="Models\DeviceLogsAnalysis\AntivirusUpdatePieChart.cs" />

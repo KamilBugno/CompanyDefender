@@ -132,31 +132,25 @@ namespace CompanyDefender.Controllers
         public PartialViewResult _AntivirusPopup(string startDate, string endDate)
         {
             var jsonResponse = restfulClient.GetPeopleWhoDoNotUpdateAntivirus(startDate, endDate);
-            var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
-            ViewBag.Employee = employee;
+            var employeeKeys = JsonConvert.DeserializeObject<List<EmployeeKey>>(jsonResponse);
+            var employees = new List<EmployeeWithDeviceNumber>();
+            foreach(EmployeeKey ek in employeeKeys)
+            {
+                var fullJson = graphQLClient.GetPersonWithDevicesNumber(ek.key);
+                JObject parsedJson = JObject.Parse(fullJson);
+                JObject personJson = (JObject)parsedJson["data"]["person"];
+                var employee = JsonConvert.DeserializeObject<EmployeeWithDeviceNumber>(personJson.ToString());
+                employees.Add(employee);
+            }
+            ViewBag.Employee = employees;
             return PartialView();
         }
 
         public PartialViewResult _PersonDetailsPopup(string key)
         {
-            //var fullJson = @"{
-            //    ""data"": {
-            //      ""person"": {
-            //        ""name"": ""Alicja Kowalska"",
-            //        ""mail"": ""alicja.kowalska@company.com"",
-            //        ""department"": ""software development"",
-            //        ""devices_number"": ""1"",
-            //        ""roles"": "".NET Developer,Team leader""
-            //       }
-            //     }
-            //}";
-
             var fullJson = graphQLClient.GetPerson(key);
-
             JObject parsedJson = JObject.Parse(fullJson);
             JObject personJson = (JObject)parsedJson["data"]["person"];
-            //var jsonResponse = restfulClient.GetPersonDetails(key);
-            //var employee = JsonConvert.DeserializeObject<List<Employee>>(jsonResponse);
             var employee = JsonConvert.DeserializeObject<Employee>(personJson.ToString());
             return PartialView("_PersonDetailsPopup", employee);
         }

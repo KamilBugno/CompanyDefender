@@ -5,21 +5,9 @@
             <div>
                 <p>
                     <b>Dział: </b> @person.department<br/>
-                    <b>Stanowisko(a): </b>
-                    @for (int i = person.roles.Length - 1; i >= 0; i--)
-                    {
-                        if (i != 0) 
-                        {
-                            @person.roles[i]<a>, </a>
-                        }
-                        else
-                        {
-                            @person.roles[i]
-                        }
-
-                    }
-                    <br/>
-                    <b>E-mail: </b>@person.mail
+                    <b>Stanowisko(a): </b>@person.roles<br/>
+                    <b>E-mail: </b>@person.mail<br />
+                    <b>Liczba wszystkich urządzeń: </b>@person.devices_number
                 </p>
             </div>
 
