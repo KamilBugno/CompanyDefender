@@ -36,6 +36,12 @@ namespace CompanyDefender.HTTP
                 ApplicationConstant.getAntivirusDateForLineChart, startDate, endDate);
         }
 
+        public string GetMailByKey(string key)
+        {
+            return GetAction(ApplicationConstant.urlFoxxService,
+                 ApplicationConstant.getMailByKey, key);
+        }
+
         public string GetNameForFailedLoginLineChart(string startDate, string endDate)
         {
             return GetAction(ApplicationConstant.urlFoxxService,

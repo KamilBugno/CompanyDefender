@@ -1,6 +1,8 @@
 ﻿using CompanyDefender.Constant;
+using CompanyDefender.Models;
 using CompanyDefender.Models.CorrespondenceAnalysis;
 using Nest;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +12,23 @@ namespace CompanyDefender.HTTP
 {
     public class ElasticSearchClient 
     {
-        private ElasticClient client;
+        private ElasticClient elasticClient;
+        private RESTfulClient restClient;
+        private CorrespondenceAnalysisVMCreator personMailGraphVMCreator;
 
-        public ElasticSearchClient()
+        public ElasticSearchClient(CorrespondenceAnalysisVMCreator personMailGraphVMCreator, RESTfulClient restClient)
         {
             var settings = new ConnectionSettings(new Uri(ApplicationConstant.urlElasticSearchService))
             .DefaultIndex(ApplicationConstant.elastcSearchIndex);
 
-            client = new ElasticClient(settings);
+            elasticClient = new ElasticClient(settings);
+            this.restClient = restClient;
+            this.personMailGraphVMCreator = personMailGraphVMCreator;
         }
 
-        public void Query(string query)
+        public PersonMailFullViewModel Search(string query)
         {
-            var searchResponse = client.Search<_doc>(s => s
+            var searchResponse = elasticClient.Search<_doc>(s => s
                 .Query(q => q
                      .MultiMatch(m => m
                         .Query(query)
@@ -35,8 +41,16 @@ namespace CompanyDefender.HTTP
                 .MinScore(0.5)
             );
 
-            var people = searchResponse.Documents;
-            var a = 0;
+            var mails = new List<MailRecord>();
+
+            foreach (_doc searchedMail in searchResponse.Documents)
+            {
+                var jsonResponse = restClient.GetMailByKey(searchedMail.key);
+                var mailRecord = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse)[0];
+                mails.Add(mailRecord);
+            }
+
+            return personMailGraphVMCreator.CreateFromMailRecords(mails);
         }
     }
 }
