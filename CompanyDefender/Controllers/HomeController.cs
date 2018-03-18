@@ -17,12 +17,14 @@ namespace CompanyDefender.Controllers
     {
         private RESTfulClient restfulClient;
         private GraphQLClient graphQLClient;
+        private ElasticSearchClient elasticSearchClient;
         private CorrespondenceAnalysisVMCreator personMailGraphVMCreator;
 
         public HomeController()
         {
             restfulClient = new RESTfulClient();
             graphQLClient = new GraphQLClient();
+            elasticSearchClient = new ElasticSearchClient();
             personMailGraphVMCreator = new CorrespondenceAnalysisVMCreator();
         }
 
@@ -71,6 +73,20 @@ namespace CompanyDefender.Controllers
             var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
 
             return View("CorrespondenceAnalysis", personMailViewModel);
+        }
+
+        public ActionResult ElasticSearch(PersonMailFullViewModel personMailFullViewModelFromForm)
+        {
+            var query = personMailFullViewModelFromForm.Query;
+            var startDate = personMailFullViewModelFromForm.StartDate;
+            var endDate = personMailFullViewModelFromForm.EndDate;
+
+            elasticSearchClient.Query(query);
+            //var jsonResponse = restfulClient.SearchMailsByAttachment(query, startDate, endDate);
+            //List<MailRecord> mails = JsonConvert.DeserializeObject<List<MailRecord>>(jsonResponse);
+            //var personMailViewModel = personMailGraphVMCreator.CreateFromMailRecords(mails);
+
+            return View("CorrespondenceAnalysis", personMailFullViewModelFromForm);
         }
 
         public ActionResult InternalSystemsAnalysis(string startDate = null, string endDate = null)
