@@ -81,7 +81,7 @@ namespace CompanyDefender.Controllers
             var startDate = personMailFullViewModelFromForm.StartDate;
             var endDate = personMailFullViewModelFromForm.EndDate;
 
-            var personMailViewModel = elasticSearchClient.Search(query);
+            var personMailViewModel = elasticSearchClient.Search(query, startDate, endDate);
 
             return View("CorrespondenceAnalysis", personMailViewModel);
         }

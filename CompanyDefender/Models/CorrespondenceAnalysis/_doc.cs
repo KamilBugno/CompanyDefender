@@ -11,5 +11,6 @@ namespace CompanyDefender.Models.CorrespondenceAnalysis
         public string attachment { get; set; }
         public string body { get; set; }
         public string topic { get; set; }
+        public string date { get; set; }
     }
 }

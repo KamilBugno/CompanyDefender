@@ -26,16 +26,25 @@ namespace CompanyDefender.HTTP
             this.personMailGraphVMCreator = personMailGraphVMCreator;
         }
 
-        public PersonMailFullViewModel Search(string query)
+        public PersonMailFullViewModel Search(string query, string startDate, string endDate)
         {
             var searchResponse = elasticClient.Search<_doc>(s => s
                 .Query(q => q
-                     .MultiMatch(m => m
-                        .Query(query)
-                        .Fields(Infer.Field<_doc>(p => p.body)
-                            .And(Infer.Field<_doc>(p => p.topic))
-                            .And(Infer.Field<_doc>(p => p.attachment)))
-                        .Fuzziness(Fuzziness.EditDistance(2))
+                     .Bool(b => b
+                        .Must(a => a
+                            .MultiMatch(m => m
+                                .Query(query)
+                                .Fields(Infer.Field<_doc>(p => p.body)
+                                    .And(Infer.Field<_doc>(p => p.topic))
+                                    .And(Infer.Field<_doc>(p => p.attachment)))
+                                .Fuzziness(Fuzziness.EditDistance(2))))
+                        .Filter(f => f
+                            .DateRange(ra => ra
+                                .Field(p => p.date)
+                                .Format("yyyy-MM-dd")
+                                .GreaterThanOrEquals(startDate)
+                                .LessThanOrEquals(endDate)
+                                ))
                     )   
                 )
                 .MinScore(0.5)
